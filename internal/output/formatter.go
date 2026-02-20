@@ -23,7 +23,6 @@ func FormatValue(val interface{}, indent int) string {
 	case bson.D:
 		return formatDocument(v, indent)
 	case bson.M:
-		// Convert to bson.D for consistent formatting
 		doc := bson.D{}
 		for k, val := range v {
 			doc = append(doc, bson.E{Key: k, Value: val})
@@ -64,7 +63,7 @@ func FormatValue(val interface{}, indent int) string {
 		return fmt.Sprintf("ObjectId('%s')", v.Hex())
 	case bson.DateTime:
 		t := time.UnixMilli(int64(v))
-		return fmt.Sprintf("ISODate('%s')", t.UTC().Format(time.RFC3339Nano))
+		return fmt.Sprintf("ISODate('%s')", t.UTC().Format("2006-01-02T15:04:05.000Z"))
 	case bson.Decimal128:
 		return fmt.Sprintf("NumberDecimal('%s')", v.String())
 	case bson.Timestamp:
@@ -92,7 +91,7 @@ func FormatValue(val interface{}, indent int) string {
 	case int:
 		return fmt.Sprintf("%d", v)
 	case time.Time:
-		return fmt.Sprintf("ISODate('%s')", v.UTC().Format(time.RFC3339Nano))
+		return fmt.Sprintf("ISODate('%s')", v.UTC().Format("2006-01-02T15:04:05.000Z"))
 	default:
 		return fmt.Sprintf("%v", v)
 	}
@@ -151,7 +150,7 @@ func escapeString(s string) string {
 	return s
 }
 
-// FormatDatabaseList formats the output of listDatabases command.
+// FormatDatabaseList formats the output of listDatabases command (mongosh-style GB).
 func FormatDatabaseList(databases []bson.M) string {
 	var sb strings.Builder
 	maxNameLen := 0
@@ -172,24 +171,8 @@ func FormatDatabaseList(databases []bson.M) string {
 				sizeBytes = int64(s)
 			}
 		}
-		sizeStr := formatSize(sizeBytes)
-		sb.WriteString(fmt.Sprintf("%-*s  %s\n", maxNameLen, name, sizeStr))
+		gb := float64(sizeBytes) / (1024 * 1024 * 1024)
+		sb.WriteString(fmt.Sprintf("%-*s  %.3f GB\n", maxNameLen, name, gb))
 	}
 	return sb.String()
-}
-
-func formatSize(bytes int64) string {
-	if bytes < 1024 {
-		return fmt.Sprintf("%d B", bytes)
-	}
-	kb := float64(bytes) / 1024
-	if kb < 1024 {
-		return fmt.Sprintf("%.2f KiB", kb)
-	}
-	mb := kb / 1024
-	if mb < 1024 {
-		return fmt.Sprintf("%.2f MiB", mb)
-	}
-	gb := mb / 1024
-	return fmt.Sprintf("%.2f GiB", gb)
 }

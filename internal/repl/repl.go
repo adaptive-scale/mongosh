@@ -18,21 +18,23 @@ import (
 
 // REPL represents the interactive shell.
 type REPL struct {
-	runtime   *jsruntime.Runtime
-	client    *mongoclient.Client
-	completer *Completer
-	liner     *liner.State
+	runtime    *jsruntime.Runtime
+	client     *mongoclient.Client
+	completer  *Completer
+	liner      *liner.State
 	lastCursor interface{} // stores last cursor for "it" iteration
-	quiet     bool
+	quiet      bool
+	version    string
 }
 
 // New creates a new REPL.
-func New(rt *jsruntime.Runtime, client *mongoclient.Client, quiet bool) *REPL {
+func New(rt *jsruntime.Runtime, client *mongoclient.Client, quiet bool, version string) *REPL {
 	return &REPL{
 		runtime:   rt,
 		client:    client,
 		completer: NewCompleter(client),
 		quiet:     quiet,
+		version:   version,
 	}
 }
 
@@ -68,7 +70,7 @@ func (r *REPL) Run() {
 				continue
 			}
 			// EOF (Ctrl+D)
-			fmt.Println("\nbye")
+			fmt.Println()
 			break
 		}
 
@@ -106,13 +108,13 @@ func (r *REPL) getPrompt() string {
 }
 
 func (r *REPL) printBanner() {
-	version, _ := r.client.ServerVersion()
-	fmt.Println("go-mongosh — MongoDB Shell in Go")
-	fmt.Printf("Connecting to: %s\n", r.client.CurrentDBName())
-	if version != "" {
-		fmt.Printf("MongoDB server version: %s\n", version)
+	serverVersion, _ := r.client.ServerVersion()
+	if serverVersion != "" {
+		fmt.Printf("Using MongoDB:\t\t%s\n", serverVersion)
 	}
-	fmt.Println("Type \"help\" for help, \"exit\" to quit")
+	fmt.Printf("Using Mongosh:\t\t%s\n", r.version)
+	fmt.Println()
+	fmt.Println("For mongosh info see: https://docs.mongodb.com/mongodb-shell/")
 	fmt.Println()
 }
 
@@ -122,7 +124,6 @@ func (r *REPL) handleShellCommand(input string) bool {
 
 	switch {
 	case lower == "exit" || lower == "exit()" || lower == "quit" || lower == "quit()" || lower == ".exit":
-		fmt.Println("bye")
 		r.saveHistory()
 		os.Exit(0)
 		return true
@@ -174,33 +175,44 @@ func (r *REPL) handleShellCommand(input string) bool {
 }
 
 func (r *REPL) showDatabases() {
-	val, err := r.runtime.Eval("db.adminCommand({listDatabases: 1})")
+	val, err := r.runtime.Eval("db.adminCommand({listDatabases: 1, nameOnly: false, authorizedDatabases: true})")
 	if err != nil {
-		fmt.Printf("Error: %v\n", err)
+		fmt.Printf("MongoServerError: %v\n", err)
 		return
 	}
 
 	exported := val.Export()
 	if m, ok := exported.(map[string]interface{}); ok {
-		// Convert to bson.D for formatting
 		if dbs, ok := m["databases"].([]interface{}); ok {
+			maxLen := 0
+			type dbInfo struct {
+				name string
+				size int64
+			}
+			var infos []dbInfo
 			for _, db := range dbs {
 				if dbMap, ok := db.(map[string]interface{}); ok {
-					name := fmt.Sprintf("%v", dbMap["name"])
-					var size int64
+					info := dbInfo{}
+					info.name = fmt.Sprintf("%v", dbMap["name"])
 					switch v := dbMap["sizeOnDisk"].(type) {
 					case int64:
-						size = v
+						info.size = v
 					case float64:
-						size = int64(v)
+						info.size = int64(v)
+					case int32:
+						info.size = int64(v)
 					}
-					sizeStr := formatSizeBytes(size)
-					fmt.Printf("%-20s %s\n", name, sizeStr)
+					if len(info.name) > maxLen {
+						maxLen = len(info.name)
+					}
+					infos = append(infos, info)
 				}
+			}
+			for _, info := range infos {
+				fmt.Printf("%-*s  %s\n", maxLen, info.name, formatSizeGB(info.size))
 			}
 		}
 	} else {
-		// Try as bson.D
 		if bsonResult := convert.JSToGo(r.runtime.VM, val); bsonResult != nil {
 			if doc, ok := bsonResult.(bson.D); ok {
 				fmt.Print(shell.FormatShowDbs(doc))
@@ -212,7 +224,7 @@ func (r *REPL) showDatabases() {
 func (r *REPL) showCollections() {
 	val, err := r.runtime.Eval("db.getCollectionNames()")
 	if err != nil {
-		fmt.Printf("Error: %v\n", err)
+		fmt.Printf("MongoServerError: %v\n", err)
 		return
 	}
 
@@ -227,11 +239,15 @@ func (r *REPL) showCollections() {
 func (r *REPL) evalAndPrint(input string) {
 	val, err := r.runtime.Eval(input)
 	if err != nil {
-		// Check for goja exception
 		if ex, ok := err.(*goja.Exception); ok {
-			fmt.Printf("Error: %s\n", ex.Value().String())
+			errStr := ex.Value().String()
+			if strings.Contains(errStr, "command failed") {
+				fmt.Printf("MongoServerError: %s\n", errStr)
+			} else {
+				fmt.Printf("MongoshInvalidInputError: %s\n", errStr)
+			}
 		} else {
-			fmt.Printf("Error: %v\n", err)
+			fmt.Printf("MongoshInvalidInputError: %v\n", err)
 		}
 		return
 	}
@@ -260,7 +276,6 @@ func (r *REPL) evalAndPrint(input string) {
 func (r *REPL) printCursorResults(cursorVal goja.Value) {
 	obj := cursorVal.ToObject(r.runtime.VM)
 
-	// Call toArray internally to get first batch
 	toArrayFn := obj.Get("toArray")
 	if toArrayFn == nil || goja.IsUndefined(toArrayFn) {
 		fmt.Println(val2str(cursorVal.Export()))
@@ -272,14 +287,13 @@ func (r *REPL) printCursorResults(cursorVal goja.Value) {
 	nextFn, nextOk := goja.AssertFunction(obj.Get("next"))
 
 	if !hasNextOk || !nextOk {
-		// Fallback to toArray
 		fn, ok := goja.AssertFunction(toArrayFn)
 		if !ok {
 			return
 		}
 		result, err := fn(cursorVal)
 		if err != nil {
-			fmt.Printf("Error: %v\n", err)
+			fmt.Printf("MongoServerError: %v\n", err)
 			return
 		}
 		r.printValue(result.Export())
@@ -295,7 +309,7 @@ func (r *REPL) printCursorResults(cursorVal goja.Value) {
 
 		doc, err := nextFn(cursorVal)
 		if err != nil {
-			fmt.Printf("Error: %v\n", err)
+			fmt.Printf("MongoServerError: %v\n", err)
 			break
 		}
 
@@ -341,7 +355,6 @@ func (r *REPL) printValue(val interface{}) {
 	case nil:
 		fmt.Println("null")
 	case map[string]interface{}:
-		// Check for _bsontype marker
 		if bt, ok := v["_bsontype"]; ok {
 			if ts, ok := v["toString"]; ok {
 				if fn, ok := ts.(func() string); ok {
@@ -420,32 +433,23 @@ func mapToBsonD(m map[string]interface{}) bson.D {
 }
 
 func (r *REPL) printHelp() {
-	fmt.Println(`go-mongosh Help:
+	fmt.Println(`Shell Help:
 
-Shell Commands:
-  show dbs                       List databases
-  show collections               List collections in current db
-  show users                     List users in current db
-  show roles                     List roles in current db
-  use <database>                 Switch database
-  db                             Print current database name
-  it                             Iterate next batch of cursor results
-  cls                            Clear screen
-  exit / quit                    Exit the shell
+    use                                        Set current database
+    show                                       'show databases'/'show collections'/'show profile'/'show users'/'show roles'
+    exit                                       Quit the MongoDB shell
+    db                                         Print current database name
+    it                                         Result of the last line evaluated; use to further iterate
+    cls                                        Clear the terminal screen
 
-Database Methods:         Type db.help() for more
-Collection Methods:       Type db.<collection>.help() for more
-Replica Set Methods:      Type rs.help() for more
-Sharding Methods:         Type sh.help() for more
+    help                                       Show this help
 
-Type Constructors:
-  ObjectId()                     Create a new ObjectId
-  ISODate()                      Create an ISODate
-  NumberLong(n)                  Create a 64-bit integer
-  NumberInt(n)                   Create a 32-bit integer
-  NumberDecimal(s)               Create a decimal128
-  UUID()                         Generate a UUID
-  Timestamp(t, i)                Create a timestamp`)
+  For more info, see: https://docs.mongodb.com/mongodb-shell/
+
+  Database Methods:         Type db.help() for more
+  Collection Methods:       Type db.<collection>.help() for more
+  Replica Set Methods:      Type rs.help() for more
+  Sharding Methods:         Type sh.help() for more`)
 }
 
 func (r *REPL) historyPath() string {
@@ -505,7 +509,6 @@ func isIncomplete(input string) bool {
 		}
 	}
 
-	// Also check for trailing backslash
 	if len(input) > 0 && input[len(input)-1] == '\\' {
 		return true
 	}
@@ -517,18 +520,11 @@ func val2str(v interface{}) string {
 	return fmt.Sprintf("%v", v)
 }
 
-func formatSizeBytes(bytes int64) string {
-	if bytes < 1024 {
-		return fmt.Sprintf("%d B", bytes)
+// formatSizeGB formats bytes as GB like real mongosh: "0.007GB"
+func formatSizeGB(bytes int64) string {
+	gb := float64(bytes) / (1024 * 1024 * 1024)
+	if gb < 0.001 {
+		return fmt.Sprintf("%.3f GB", gb)
 	}
-	kb := float64(bytes) / 1024
-	if kb < 1024 {
-		return fmt.Sprintf("%.2f KiB", kb)
-	}
-	mb := kb / 1024
-	if mb < 1024 {
-		return fmt.Sprintf("%.2f MiB", mb)
-	}
-	gb := mb / 1024
-	return fmt.Sprintf("%.2f GiB", gb)
+	return fmt.Sprintf("%.3f GB", gb)
 }

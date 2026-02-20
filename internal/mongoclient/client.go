@@ -2,6 +2,7 @@ package mongoclient
 
 import (
 	"context"
+	"crypto/rand"
 	"fmt"
 	"time"
 
@@ -25,18 +26,14 @@ func Connect(uri string) (*Client, error) {
 	opts := options.Client().ApplyURI(uri)
 	client, err := mongo.Connect(opts)
 	if err != nil {
-		return nil, fmt.Errorf("failed to connect: %w", err)
+		return nil, fmt.Errorf("connect ECONNREFUSED: %w", err)
 	}
 
 	if err := client.Ping(ctx, nil); err != nil {
-		return nil, fmt.Errorf("failed to ping: %w", err)
+		return nil, fmt.Errorf("connect ECONNREFUSED: %w", err)
 	}
 
-	// Extract default database from URI, fallback to "test"
 	dbName := "test"
-	if opts.Auth != nil && opts.Auth.AuthSource != "" {
-		// Don't use authSource as default db
-	}
 
 	return &Client{
 		inner:  client,
@@ -55,6 +52,11 @@ func (c *Client) Disconnect() error {
 // Inner returns the underlying mongo.Client.
 func (c *Client) Inner() *mongo.Client {
 	return c.inner
+}
+
+// URI returns the connection URI.
+func (c *Client) URI() string {
+	return c.uri
 }
 
 // Database returns a handle to the named database.
@@ -104,4 +106,11 @@ func (c *Client) ServerVersion() (string, error) {
 		return v, nil
 	}
 	return "unknown", nil
+}
+
+// GenerateLogID generates a random hex log ID similar to mongosh.
+func GenerateLogID() string {
+	b := make([]byte, 12)
+	rand.Read(b)
+	return fmt.Sprintf("%x", b)
 }
