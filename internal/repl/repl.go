@@ -1,12 +1,13 @@
 package repl
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
-	"github.com/adaptive-scale/go-mongosh/internal/convert"
 	"github.com/adaptive-scale/go-mongosh/internal/jsruntime"
 	"github.com/adaptive-scale/go-mongosh/internal/mongoclient"
 	"github.com/adaptive-scale/go-mongosh/internal/output"
@@ -120,7 +121,7 @@ func (r *REPL) printBanner() {
 
 // handleShellCommand processes special shell commands. Returns true if handled.
 func (r *REPL) handleShellCommand(input string) bool {
-	lower := strings.TrimSpace(strings.ToLower(input))
+	lower := strings.TrimRight(strings.TrimSpace(strings.ToLower(input)), ";")
 
 	switch {
 	case lower == "exit" || lower == "exit()" || lower == "quit" || lower == "quit()" || lower == ".exit":
@@ -175,50 +176,24 @@ func (r *REPL) handleShellCommand(input string) bool {
 }
 
 func (r *REPL) showDatabases() {
-	val, err := r.runtime.Eval("db.adminCommand({listDatabases: 1, nameOnly: false, authorizedDatabases: true})")
+	// Call MongoDB driver directly (bypass JS runtime to avoid conversion issues)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	cmd := bson.D{
+		{Key: "listDatabases", Value: 1},
+		{Key: "nameOnly", Value: false},
+		{Key: "authorizedDatabases", Value: true},
+	}
+
+	var result bson.D
+	err := r.client.Inner().Database("admin").RunCommand(ctx, cmd).Decode(&result)
 	if err != nil {
 		fmt.Printf("MongoServerError: %v\n", err)
 		return
 	}
 
-	exported := val.Export()
-	if m, ok := exported.(map[string]interface{}); ok {
-		if dbs, ok := m["databases"].([]interface{}); ok {
-			maxLen := 0
-			type dbInfo struct {
-				name string
-				size int64
-			}
-			var infos []dbInfo
-			for _, db := range dbs {
-				if dbMap, ok := db.(map[string]interface{}); ok {
-					info := dbInfo{}
-					info.name = fmt.Sprintf("%v", dbMap["name"])
-					switch v := dbMap["sizeOnDisk"].(type) {
-					case int64:
-						info.size = v
-					case float64:
-						info.size = int64(v)
-					case int32:
-						info.size = int64(v)
-					}
-					if len(info.name) > maxLen {
-						maxLen = len(info.name)
-					}
-					infos = append(infos, info)
-				}
-			}
-			for _, info := range infos {
-				fmt.Printf("%-*s  %s\n", maxLen, info.name, formatSizeGB(info.size))
-			}
-		}
-	} else {
-		if bsonResult := convert.JSToGo(r.runtime.VM, val); bsonResult != nil {
-			if doc, ok := bsonResult.(bson.D); ok {
-				fmt.Print(shell.FormatShowDbs(doc))
-			}
-		}
-	}
+	fmt.Print(shell.FormatShowDbs(result))
 }
 
 func (r *REPL) showCollections() {
@@ -240,8 +215,8 @@ func (r *REPL) evalAndPrint(input string) {
 	val, err := r.runtime.Eval(input)
 	if err != nil {
 		if ex, ok := err.(*goja.Exception); ok {
-			errStr := ex.Value().String()
-			if strings.Contains(errStr, "command failed") {
+			errStr := cleanErrorMessage(ex.Value().String())
+			if strings.Contains(errStr, "command failed") || strings.Contains(errStr, "Unauthorized") {
 				fmt.Printf("MongoServerError: %s\n", errStr)
 			} else {
 				fmt.Printf("MongoshInvalidInputError: %s\n", errStr)
@@ -527,4 +502,13 @@ func formatSizeGB(bytes int64) string {
 		return fmt.Sprintf("%.3f GB", gb)
 	}
 	return fmt.Sprintf("%.3f GB", gb)
+}
+
+// cleanErrorMessage strips Go-specific wrappers from error messages
+// to make them look like real mongosh errors.
+// e.g. "GoError: command failed: (Unauthorized) ..." → "(Unauthorized) ..."
+func cleanErrorMessage(msg string) string {
+	msg = strings.TrimPrefix(msg, "GoError: ")
+	msg = strings.TrimPrefix(msg, "command failed: ")
+	return msg
 }
