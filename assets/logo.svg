@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#161b22"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00ADD8"/>
+      <stop offset="100%" style="stop-color:#13AA52"/>
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#13AA52"/>
+      <stop offset="60%" style="stop-color:#0F8C42"/>
+      <stop offset="100%" style="stop-color:#0A6E34"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="260" rx="16" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.04"/>
+  </pattern>
+  <rect width="900" height="260" rx="16" fill="url(#grid)"/>
+
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="900" height="3" rx="1" fill="url(#accent)"/>
+
+  <!-- Terminal icon group -->
+  <g transform="translate(60, 55)" filter="url(#shadow)">
+    <!-- Terminal window -->
+    <rect width="150" height="150" rx="12" fill="#1c2333" stroke="#30363d" stroke-width="1.5"/>
+
+    <!-- Title bar -->
+    <rect width="150" height="28" rx="12" fill="#252d3a"/>
+    <rect x="0" y="14" width="150" height="14" fill="#252d3a"/>
+
+    <!-- Traffic lights -->
+    <circle cx="18" cy="14" r="5" fill="#f85149" opacity="0.9"/>
+    <circle cx="36" cy="14" r="5" fill="#f0b429" opacity="0.9"/>
+    <circle cx="54" cy="14" r="5" fill="#13AA52" opacity="0.9"/>
+
+    <!-- MongoDB leaf inside terminal -->
+    <g transform="translate(55, 52)">
+      <path d="M20 0 C20 0 8 16 8 28 C8 38 13 44 18 46 L18 52 L22 52 L22 46 C27 44 32 38 32 28 C32 16 20 0 20 0Z"
+            fill="url(#leafGrad)" opacity="0.95"/>
+      <path d="M19 8 C19 8 13 20 13 28 C13 34 15 38 18 40 L18 46 L20 46 L20 8Z"
+            fill="#16C65B" opacity="0.4"/>
+    </g>
+
+    <!-- Cursor prompt -->
+    <text x="14" y="128" font-family="'SF Mono', 'Fira Code', 'Consolas', monospace" font-size="14" fill="#00ADD8" font-weight="bold">&gt;_</text>
+    <rect x="40" y="118" width="8" height="14" fill="#13AA52" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.2s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- Main title -->
+  <g transform="translate(245, 115)">
+    <text font-family="'SF Pro Display', 'Inter', 'Segoe UI', system-ui, sans-serif" font-size="62" font-weight="800" letter-spacing="-2">
+      <tspan fill="#00ADD8">go</tspan><tspan fill="#6e7681">-</tspan><tspan fill="#13AA52">mongosh</tspan>
+    </text>
+  </g>
+
+  <!-- Subtitle -->
+  <text x="245" y="158" font-family="'SF Pro Display', 'Inter', 'Segoe UI', system-ui, sans-serif" font-size="17" fill="#8b949e" letter-spacing="0.5">
+    MongoDB Shell reimagined in Go
+  </text>
+
+  <!-- Feature badges -->
+  <g transform="translate(245, 180)">
+    <!-- Badge: Interactive REPL -->
+    <g>
+      <rect width="120" height="26" rx="13" fill="#1c2333" stroke="#30363d" stroke-width="1"/>
+      <text x="60" y="17" text-anchor="middle" font-family="'SF Mono', monospace" font-size="11" fill="#00ADD8">Interactive REPL</text>
+    </g>
+    <!-- Badge: Full CRUD -->
+    <g transform="translate(130, 0)">
+      <rect width="90" height="26" rx="13" fill="#1c2333" stroke="#30363d" stroke-width="1"/>
+      <text x="45" y="17" text-anchor="middle" font-family="'SF Mono', monospace" font-size="11" fill="#13AA52">Full CRUD</text>
+    </g>
+    <!-- Badge: Aggregation -->
+    <g transform="translate(230, 0)">
+      <rect width="105" height="26" rx="13" fill="#1c2333" stroke="#30363d" stroke-width="1"/>
+      <text x="52" y="17" text-anchor="middle" font-family="'SF Mono', monospace" font-size="11" fill="#f0b429">Aggregation</text>
+    </g>
+    <!-- Badge: Cross-Platform -->
+    <g transform="translate(345, 0)">
+      <rect width="120" height="26" rx="13" fill="#1c2333" stroke="#30363d" stroke-width="1"/>
+      <text x="60" y="17" text-anchor="middle" font-family="'SF Mono', monospace" font-size="11" fill="#bc8cff">Cross-Platform</text>
+    </g>
+    <!-- Badge: JS Runtime -->
+    <g transform="translate(475, 0)">
+      <rect width="100" height="26" rx="13" fill="#1c2333" stroke="#30363d" stroke-width="1"/>
+      <text x="50" y="17" text-anchor="middle" font-family="'SF Mono', monospace" font-size="11" fill="#f78166">JS Runtime</text>
+    </g>
+  </g>
+
+  <!-- Version / corner accent -->
+  <g transform="translate(810, 240)">
+    <text font-family="'SF Mono', monospace" font-size="12" fill="#30363d">v1.0</text>
+  </g>
+</svg>

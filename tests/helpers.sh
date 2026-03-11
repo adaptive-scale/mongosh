@@ -16,9 +16,15 @@ TESTS_TOTAL=0
 # Binary and connection settings
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MONGOSH="${SCRIPT_DIR}/../mongosh"
-MONGO_URI="REDACTED_URI"
-MONGO_USER="admin"
-MONGO_PASS="REDACTED_PASS"
+
+# Load credentials from .env file
+if [ -f "${SCRIPT_DIR}/.env" ]; then
+    source "${SCRIPT_DIR}/.env"
+else
+    echo "ERROR: tests/.env not found. Copy tests/.env.example to tests/.env and fill in credentials."
+    exit 1
+fi
+
 CONN_ARGS="-uri ${MONGO_URI} -u ${MONGO_USER} -p ${MONGO_PASS}"
 
 # Test database used for all tests (cleaned up at end)

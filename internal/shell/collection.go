@@ -18,12 +18,13 @@ import (
 type CollectionObject struct {
 	vm     *goja.Runtime
 	client *mongoclient.Client
+	dbName string
 	name   string
 }
 
 // NewCollectionObject creates a JS object representing a MongoDB collection.
-func NewCollectionObject(vm *goja.Runtime, client *mongoclient.Client, name string) goja.Value {
-	c := &CollectionObject{vm: vm, client: client, name: name}
+func NewCollectionObject(vm *goja.Runtime, client *mongoclient.Client, dbName string, name string) goja.Value {
+	c := &CollectionObject{vm: vm, client: client, dbName: dbName, name: name}
 	obj := vm.NewObject()
 
 	// Query
@@ -77,7 +78,7 @@ func NewCollectionObject(vm *goja.Runtime, client *mongoclient.Client, name stri
 
 	// Identity
 	obj.Set("getName", func() string { return name })
-	obj.Set("toString", func() string { return fmt.Sprintf("%s.%s", client.CurrentDBName(), name) })
+	obj.Set("toString", func() string { return fmt.Sprintf("%s.%s", dbName, name) })
 
 	// Help
 	obj.Set("help", c.help)
@@ -86,7 +87,7 @@ func NewCollectionObject(vm *goja.Runtime, client *mongoclient.Client, name stri
 }
 
 func (c *CollectionObject) coll() *mongo.Collection {
-	return c.client.CurrentDB().Collection(c.name)
+	return c.client.Inner().Database(c.dbName).Collection(c.name)
 }
 
 func (c *CollectionObject) defaultCtx() (context.Context, context.CancelFunc) {
@@ -457,7 +458,7 @@ func (c *CollectionObject) findAndModify(call goja.FunctionCall) goja.Value {
 	}
 
 	var result bson.D
-	err := c.client.CurrentDB().RunCommand(ctx, cmd).Decode(&result)
+	err := c.client.Inner().Database(c.dbName).RunCommand(ctx, cmd).Decode(&result)
 	if err != nil {
 		panic(c.vm.NewGoError(err))
 	}
@@ -548,7 +549,7 @@ func (c *CollectionObject) distinct(call goja.FunctionCall) goja.Value {
 	}
 
 	var result bson.D
-	err := c.client.CurrentDB().RunCommand(ctx, cmd).Decode(&result)
+	err := c.client.Inner().Database(c.dbName).RunCommand(ctx, cmd).Decode(&result)
 	if err != nil {
 		panic(c.vm.NewGoError(err))
 	}
@@ -678,7 +679,7 @@ func (c *CollectionObject) dropIndex(call goja.FunctionCall) goja.Value {
 			{Key: "index", Value: keys},
 		}
 		var result bson.D
-		err := c.client.CurrentDB().RunCommand(ctx, cmd).Decode(&result)
+		err := c.client.Inner().Database(c.dbName).RunCommand(ctx, cmd).Decode(&result)
 		if err != nil {
 			panic(c.vm.NewGoError(err))
 		}
@@ -745,7 +746,7 @@ func (c *CollectionObject) renameCollection(call goja.FunctionCall) goja.Value {
 	defer cancel()
 
 	newName := call.Arguments[0].String()
-	dbName := c.client.CurrentDBName()
+	dbName := c.dbName
 
 	cmd := bson.D{
 		{Key: "renameCollection", Value: fmt.Sprintf("%s.%s", dbName, c.name)},
@@ -766,7 +767,7 @@ func (c *CollectionObject) stats(call goja.FunctionCall) goja.Value {
 
 	cmd := bson.D{{Key: "collStats", Value: c.name}}
 	var result bson.D
-	err := c.client.CurrentDB().RunCommand(ctx, cmd).Decode(&result)
+	err := c.client.Inner().Database(c.dbName).RunCommand(ctx, cmd).Decode(&result)
 	if err != nil {
 		panic(c.vm.NewGoError(err))
 	}
@@ -779,7 +780,7 @@ func (c *CollectionObject) validate(call goja.FunctionCall) goja.Value {
 
 	cmd := bson.D{{Key: "validate", Value: c.name}}
 	var result bson.D
-	err := c.client.CurrentDB().RunCommand(ctx, cmd).Decode(&result)
+	err := c.client.Inner().Database(c.dbName).RunCommand(ctx, cmd).Decode(&result)
 	if err != nil {
 		panic(c.vm.NewGoError(err))
 	}
@@ -792,7 +793,7 @@ func (c *CollectionObject) isCapped(call goja.FunctionCall) goja.Value {
 
 	cmd := bson.D{{Key: "collStats", Value: c.name}}
 	var result bson.D
-	err := c.client.CurrentDB().RunCommand(ctx, cmd).Decode(&result)
+	err := c.client.Inner().Database(c.dbName).RunCommand(ctx, cmd).Decode(&result)
 	if err != nil {
 		panic(c.vm.NewGoError(err))
 	}
@@ -922,7 +923,7 @@ func (c *CollectionObject) explain(call goja.FunctionCall) goja.Value {
 		}
 
 		var result bson.D
-		err := c.client.CurrentDB().RunCommand(ctx, cmd).Decode(&result)
+		err := c.client.Inner().Database(c.dbName).RunCommand(ctx, cmd).Decode(&result)
 		if err != nil {
 			panic(c.vm.NewGoError(err))
 		}
@@ -948,7 +949,7 @@ func (c *CollectionObject) explain(call goja.FunctionCall) goja.Value {
 		}
 
 		var result bson.D
-		err := c.client.CurrentDB().RunCommand(ctx, cmd).Decode(&result)
+		err := c.client.Inner().Database(c.dbName).RunCommand(ctx, cmd).Decode(&result)
 		if err != nil {
 			panic(c.vm.NewGoError(err))
 		}

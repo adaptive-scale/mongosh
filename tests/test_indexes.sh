@@ -46,7 +46,7 @@ output=$(run_eval "${COLL}.dropIndex('name_1')")
 assert_contains "$output" "ok" "dropIndex returns ok"
 
 output=$(run_eval "${COLL}.getIndexes()")
-assert_not_contains "$output" "name_1" "dropped index no longer in list"
+assert_not_contains "$output" '"name_1"' "dropped index no longer in list"
 
 # ──────────────────────────────────────────────
 print_group "dropIndexes (all non-_id)"

@@ -73,7 +73,7 @@ func FormatValue(val interface{}, indent int) string {
 	case bson.Binary:
 		return fmt.Sprintf("Binary.createFromBase64('%x', %d)", v.Data, v.Subtype)
 	case string:
-		return fmt.Sprintf("'%s'", escapeString(v))
+		return fmt.Sprintf("\"%s\"", escapeString(v))
 	case bool:
 		if v {
 			return "true"
@@ -143,11 +143,113 @@ func isSimpleDoc(doc bson.D) bool {
 
 func escapeString(s string) string {
 	s = strings.ReplaceAll(s, "\\", "\\\\")
-	s = strings.ReplaceAll(s, "'", "\\'")
+	s = strings.ReplaceAll(s, "\"", "\\\"")
 	s = strings.ReplaceAll(s, "\n", "\\n")
 	s = strings.ReplaceAll(s, "\r", "\\r")
 	s = strings.ReplaceAll(s, "\t", "\\t")
 	return s
+}
+
+// FormatExported formats a Go value (from goja Export()) as mongosh-style output.
+func FormatExported(val interface{}) string {
+	if val == nil {
+		return "null"
+	}
+	switch v := val.(type) {
+	case string:
+		return v
+	case bool:
+		if v {
+			return "true"
+		}
+		return "false"
+	case int64:
+		return fmt.Sprintf("%d", v)
+	case float64:
+		if v == float64(int64(v)) {
+			return fmt.Sprintf("%g", v)
+		}
+		return fmt.Sprintf("%v", v)
+	case map[string]interface{}:
+		// Check for BSON type wrappers
+		if bt, ok := v["_bsontype"]; ok {
+			if ts, ok := v["toString"]; ok {
+				if fn, ok := ts.(func() string); ok {
+					return fn()
+				}
+			}
+			return fmt.Sprintf("%v", bt)
+		}
+		doc := exportedMapToBsonD(v)
+		return FormatValue(doc, 0)
+	case []interface{}:
+		arr := bson.A{}
+		for _, item := range v {
+			if m, ok := item.(map[string]interface{}); ok {
+				arr = append(arr, exportedMapToBsonD(m))
+			} else {
+				arr = append(arr, item)
+			}
+		}
+		return FormatValue(arr, 0)
+	case bson.D:
+		return FormatValue(v, 0)
+	default:
+		return fmt.Sprintf("%v", v)
+	}
+}
+
+// exportedMapToBsonD converts a map from goja Export() to bson.D, handling
+// BSON type wrappers (ObjectId, ISODate, NumberLong, etc.).
+func exportedMapToBsonD(m map[string]interface{}) bson.D {
+	doc := bson.D{}
+	for k, v := range m {
+		// Skip BSON type helper keys
+		switch k {
+		case "_bsontype", "toString", "valueOf", "toHexString",
+			"getTimestamp", "toISOString", "getTime", "toNumber":
+			continue
+		}
+		switch val := v.(type) {
+		case map[string]interface{}:
+			if bt, ok := val["_bsontype"]; ok {
+				switch bt {
+				case "ObjectId":
+					if id, ok := val["id"].(string); ok {
+						oid, err := bson.ObjectIDFromHex(id)
+						if err == nil {
+							doc = append(doc, bson.E{Key: k, Value: oid})
+							continue
+						}
+					}
+				case "ISODate":
+					if dateStr, ok := val["value"].(string); ok {
+						doc = append(doc, bson.E{Key: k, Value: "ISODate(\"" + dateStr + "\")"})
+						continue
+					}
+				case "NumberLong":
+					if num, ok := val["value"].(int64); ok {
+						doc = append(doc, bson.E{Key: k, Value: num})
+						continue
+					}
+				}
+			}
+			doc = append(doc, bson.E{Key: k, Value: exportedMapToBsonD(val)})
+		case []interface{}:
+			arr := bson.A{}
+			for _, item := range val {
+				if im, ok := item.(map[string]interface{}); ok {
+					arr = append(arr, exportedMapToBsonD(im))
+				} else {
+					arr = append(arr, item)
+				}
+			}
+			doc = append(doc, bson.E{Key: k, Value: arr})
+		default:
+			doc = append(doc, bson.E{Key: k, Value: v})
+		}
+	}
+	return doc
 }
 
 // FormatDatabaseList formats the output of listDatabases command (mongosh-style GB).

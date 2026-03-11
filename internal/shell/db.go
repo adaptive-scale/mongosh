@@ -17,11 +17,18 @@ import (
 type DBObject struct {
 	vm     *goja.Runtime
 	client *mongoclient.Client
+	dbName string
 }
 
 // NewDBObject creates a new db DynamicObject.
 func NewDBObject(vm *goja.Runtime, client *mongoclient.Client) *goja.Object {
-	db := &DBObject{vm: vm, client: client}
+	db := &DBObject{vm: vm, client: client, dbName: client.CurrentDBName()}
+	return vm.NewDynamicObject(db)
+}
+
+// newDBObjectForName creates a db DynamicObject targeting a specific database.
+func newDBObjectForName(vm *goja.Runtime, client *mongoclient.Client, dbName string) *goja.Object {
+	db := &DBObject{vm: vm, client: client, dbName: dbName}
 	return vm.NewDynamicObject(db)
 }
 
@@ -33,6 +40,12 @@ func (d *DBObject) Get(key string) goja.Value {
 		return d.vm.ToValue(d.getName)
 	case "toString":
 		return d.vm.ToValue(d.getName)
+
+	// Sibling database access
+	case "getSiblingDB":
+		return d.vm.ToValue(d.getSiblingDB)
+	case "getMongo":
+		return d.vm.ToValue(d.getMongo)
 
 	// Collection management
 	case "getCollectionNames":
@@ -108,7 +121,7 @@ func (d *DBObject) Get(key string) goja.Value {
 
 	default:
 		// Dynamic collection access: db.users, db.orders, etc.
-		return NewCollectionObject(d.vm, d.client, key)
+		return NewCollectionObject(d.vm, d.client, d.dbName, key)
 	}
 }
 
@@ -130,7 +143,8 @@ func (d *DBObject) Delete(key string) bool {
 // Keys returns the known properties of the db object.
 func (d *DBObject) Keys() []string {
 	return []string{
-		"getName", "getCollectionNames", "getCollection", "createCollection",
+		"getName", "getSiblingDB", "getMongo",
+		"getCollectionNames", "getCollection", "createCollection",
 		"dropDatabase", "stats", "version", "runCommand", "adminCommand",
 		"serverStatus", "currentOp", "killOp", "fsyncLock", "fsyncUnlock",
 		"createUser", "getUser", "getUsers", "updateUser", "dropUser",
@@ -143,7 +157,31 @@ func (d *DBObject) Keys() []string {
 // --- Database identity ---
 
 func (d *DBObject) getName() string {
-	return d.client.CurrentDBName()
+	return d.dbName
+}
+
+func (d *DBObject) getSiblingDB(call goja.FunctionCall) goja.Value {
+	if len(call.Arguments) < 1 {
+		panic(d.vm.NewTypeError("getSiblingDB requires a database name"))
+	}
+	name := call.Arguments[0].String()
+	return newDBObjectForName(d.vm, d.client, name)
+}
+
+func (d *DBObject) getMongo() goja.Value {
+	obj := d.vm.NewObject()
+	obj.Set("getDBNames", func() interface{} {
+		names, err := d.client.ListDatabaseNames()
+		if err != nil {
+			panic(d.vm.NewGoError(err))
+		}
+		result := make([]interface{}, len(names))
+		for i, n := range names {
+			result[i] = n
+		}
+		return result
+	})
+	return obj
 }
 
 // --- Collection management ---
@@ -152,7 +190,7 @@ func (d *DBObject) getCollectionNames() interface{} {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	db := d.client.CurrentDB()
+	db := d.client.Inner().Database(d.dbName)
 	names, err := db.ListCollectionNames(ctx, bson.D{})
 	if err != nil {
 		panic(d.vm.NewGoError(err))
@@ -169,7 +207,7 @@ func (d *DBObject) getCollection(call goja.FunctionCall) goja.Value {
 		panic(d.vm.NewTypeError("getCollection requires a collection name"))
 	}
 	name := call.Arguments[0].String()
-	return NewCollectionObject(d.vm, d.client, name)
+	return NewCollectionObject(d.vm, d.client, d.dbName, name)
 }
 
 func (d *DBObject) createCollection(call goja.FunctionCall) goja.Value {
@@ -203,7 +241,7 @@ func (d *DBObject) createCollection(call goja.FunctionCall) goja.Value {
 		}
 	}
 
-	err := d.client.CurrentDB().CreateCollection(ctx, name, opts)
+	err := d.client.Inner().Database(d.dbName).CreateCollection(ctx, name, opts)
 	if err != nil {
 		panic(d.vm.NewGoError(err))
 	}
@@ -218,15 +256,15 @@ func (d *DBObject) createCollection(call goja.FunctionCall) goja.Value {
 func (d *DBObject) dropDatabase() interface{} {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	err := d.client.CurrentDB().Drop(ctx)
+	err := d.client.Inner().Database(d.dbName).Drop(ctx)
 	if err != nil {
 		panic(d.vm.NewGoError(err))
 	}
-	return map[string]interface{}{"ok": 1, "dropped": d.client.CurrentDBName()}
+	return map[string]interface{}{"ok": 1, "dropped": d.dbName}
 }
 
 func (d *DBObject) dbStats() interface{} {
-	return d.runSimpleCommand(d.client.CurrentDBName(), bson.D{{Key: "dbStats", Value: 1}})
+	return d.runSimpleCommand(d.dbName, bson.D{{Key: "dbStats", Value: 1}})
 }
 
 func (d *DBObject) version() string {
@@ -244,7 +282,7 @@ func (d *DBObject) runCommand(call goja.FunctionCall) goja.Value {
 		panic(d.vm.NewTypeError("runCommand requires a command document"))
 	}
 	cmd := convert.JSToGo(d.vm, call.Arguments[0])
-	result := d.runSimpleCommand(d.client.CurrentDBName(), cmd)
+	result := d.runSimpleCommand(d.dbName, cmd)
 	return convert.GoToJS(d.vm, result)
 }
 
@@ -301,7 +339,7 @@ func (d *DBObject) createUser(call goja.FunctionCall) goja.Value {
 		}
 	}
 
-	result := d.runSimpleCommand(d.client.CurrentDBName(), cmd)
+	result := d.runSimpleCommand(d.dbName, cmd)
 	return convert.GoToJS(d.vm, result)
 }
 
@@ -310,14 +348,14 @@ func (d *DBObject) getUser(call goja.FunctionCall) goja.Value {
 		panic(d.vm.NewTypeError("getUser requires a username"))
 	}
 	username := call.Arguments[0].String()
-	result := d.runSimpleCommand(d.client.CurrentDBName(), bson.D{
-		{Key: "usersInfo", Value: bson.D{{Key: "user", Value: username}, {Key: "db", Value: d.client.CurrentDBName()}}},
+	result := d.runSimpleCommand(d.dbName, bson.D{
+		{Key: "usersInfo", Value: bson.D{{Key: "user", Value: username}, {Key: "db", Value: d.dbName}}},
 	})
 	return convert.GoToJS(d.vm, result)
 }
 
 func (d *DBObject) getUsers() interface{} {
-	return d.runSimpleCommand(d.client.CurrentDBName(), bson.D{{Key: "usersInfo", Value: 1}})
+	return d.runSimpleCommand(d.dbName, bson.D{{Key: "usersInfo", Value: 1}})
 }
 
 func (d *DBObject) updateUser(call goja.FunctionCall) goja.Value {
@@ -332,7 +370,7 @@ func (d *DBObject) updateUser(call goja.FunctionCall) goja.Value {
 		cmd = append(cmd, doc...)
 	}
 
-	result := d.runSimpleCommand(d.client.CurrentDBName(), cmd)
+	result := d.runSimpleCommand(d.dbName, cmd)
 	return convert.GoToJS(d.vm, result)
 }
 
@@ -341,7 +379,7 @@ func (d *DBObject) dropUser(call goja.FunctionCall) goja.Value {
 		panic(d.vm.NewTypeError("dropUser requires a username"))
 	}
 	username := call.Arguments[0].String()
-	result := d.runSimpleCommand(d.client.CurrentDBName(), bson.D{{Key: "dropUser", Value: username}})
+	result := d.runSimpleCommand(d.dbName, bson.D{{Key: "dropUser", Value: username}})
 	return convert.GoToJS(d.vm, result)
 }
 
@@ -351,7 +389,7 @@ func (d *DBObject) changeUserPassword(call goja.FunctionCall) goja.Value {
 	}
 	username := call.Arguments[0].String()
 	password := call.Arguments[1].String()
-	result := d.runSimpleCommand(d.client.CurrentDBName(), bson.D{
+	result := d.runSimpleCommand(d.dbName, bson.D{
 		{Key: "updateUser", Value: username},
 		{Key: "pwd", Value: password},
 	})
@@ -368,7 +406,7 @@ func (d *DBObject) grantRolesToUser(call goja.FunctionCall) goja.Value {
 	}
 	username := call.Arguments[0].String()
 	roles := convert.JSToGo(d.vm, call.Arguments[1])
-	result := d.runSimpleCommand(d.client.CurrentDBName(), bson.D{
+	result := d.runSimpleCommand(d.dbName, bson.D{
 		{Key: "grantRolesToUser", Value: username},
 		{Key: "roles", Value: roles},
 	})
@@ -381,7 +419,7 @@ func (d *DBObject) revokeRolesFromUser(call goja.FunctionCall) goja.Value {
 	}
 	username := call.Arguments[0].String()
 	roles := convert.JSToGo(d.vm, call.Arguments[1])
-	result := d.runSimpleCommand(d.client.CurrentDBName(), bson.D{
+	result := d.runSimpleCommand(d.dbName, bson.D{
 		{Key: "revokeRolesFromUser", Value: username},
 		{Key: "roles", Value: roles},
 	})
@@ -405,7 +443,7 @@ func (d *DBObject) createRole(call goja.FunctionCall) goja.Value {
 			}
 		}
 	}
-	result := d.runSimpleCommand(d.client.CurrentDBName(), cmd)
+	result := d.runSimpleCommand(d.dbName, cmd)
 	return convert.GoToJS(d.vm, result)
 }
 
@@ -414,14 +452,14 @@ func (d *DBObject) getRole(call goja.FunctionCall) goja.Value {
 		panic(d.vm.NewTypeError("getRole requires a role name"))
 	}
 	roleName := call.Arguments[0].String()
-	result := d.runSimpleCommand(d.client.CurrentDBName(), bson.D{
-		{Key: "rolesInfo", Value: bson.D{{Key: "role", Value: roleName}, {Key: "db", Value: d.client.CurrentDBName()}}},
+	result := d.runSimpleCommand(d.dbName, bson.D{
+		{Key: "rolesInfo", Value: bson.D{{Key: "role", Value: roleName}, {Key: "db", Value: d.dbName}}},
 	})
 	return convert.GoToJS(d.vm, result)
 }
 
 func (d *DBObject) getRoles() interface{} {
-	return d.runSimpleCommand(d.client.CurrentDBName(), bson.D{{Key: "rolesInfo", Value: 1}})
+	return d.runSimpleCommand(d.dbName, bson.D{{Key: "rolesInfo", Value: 1}})
 }
 
 func (d *DBObject) dropRole(call goja.FunctionCall) goja.Value {
@@ -429,7 +467,7 @@ func (d *DBObject) dropRole(call goja.FunctionCall) goja.Value {
 		panic(d.vm.NewTypeError("dropRole requires a role name"))
 	}
 	roleName := call.Arguments[0].String()
-	result := d.runSimpleCommand(d.client.CurrentDBName(), bson.D{{Key: "dropRole", Value: roleName}})
+	result := d.runSimpleCommand(d.dbName, bson.D{{Key: "dropRole", Value: roleName}})
 	return convert.GoToJS(d.vm, result)
 }
 
@@ -439,7 +477,7 @@ func (d *DBObject) grantRolesToRole(call goja.FunctionCall) goja.Value {
 	}
 	roleName := call.Arguments[0].String()
 	roles := convert.JSToGo(d.vm, call.Arguments[1])
-	result := d.runSimpleCommand(d.client.CurrentDBName(), bson.D{
+	result := d.runSimpleCommand(d.dbName, bson.D{
 		{Key: "grantRolesToRole", Value: roleName},
 		{Key: "roles", Value: roles},
 	})
@@ -452,7 +490,7 @@ func (d *DBObject) revokeRolesFromRole(call goja.FunctionCall) goja.Value {
 	}
 	roleName := call.Arguments[0].String()
 	roles := convert.JSToGo(d.vm, call.Arguments[1])
-	result := d.runSimpleCommand(d.client.CurrentDBName(), bson.D{
+	result := d.runSimpleCommand(d.dbName, bson.D{
 		{Key: "revokeRolesFromRole", Value: roleName},
 		{Key: "roles", Value: roles},
 	})

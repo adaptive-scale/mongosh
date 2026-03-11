@@ -30,12 +30,20 @@ if [ ! -x "${PROJECT_DIR}/mongosh" ]; then
     exit 1
 fi
 
+# Load credentials from .env
+if [ -f "${SCRIPT_DIR}/.env" ]; then
+    source "${SCRIPT_DIR}/.env"
+else
+    echo -e "${RED}ERROR: tests/.env not found. Copy tests/.env.example to tests/.env and fill in credentials.${NC}"
+    exit 1
+fi
+
 # Test connectivity before running suite
 echo ""
 echo -e "${YELLOW}Checking MongoDB connectivity...${NC}"
 output=$("${PROJECT_DIR}/mongosh" \
-    -uri "REDACTED_URI" \
-    -u admin -p REDACTED_PASS \
+    -uri "${MONGO_URI}" \
+    -u "${MONGO_USER}" -p "${MONGO_PASS}" \
     -quiet -eval "db.runCommand({ping: 1})" 2>&1) || true
 
 if echo "$output" | grep -q "ok"; then
