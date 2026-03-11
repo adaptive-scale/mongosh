@@ -2,12 +2,6 @@
   <img src="assets/logo.svg" alt="go-mongosh" width="800"/>
 </p>
 
-<p align="center">
-  <a href="https://github.com/adaptive-scale/go-mongosh/releases"><img src="https://img.shields.io/github/v/release/adaptive-scale/go-mongosh?style=flat-square&color=13AA52" alt="Release"/></a>
-  <a href="https://github.com/adaptive-scale/go-mongosh/blob/main/LICENSE"><img src="https://img.shields.io/github/license/adaptive-scale/go-mongosh?style=flat-square&color=00ADD8" alt="License"/></a>
-  <a href="https://github.com/adaptive-scale/go-mongosh"><img src="https://img.shields.io/github/stars/adaptive-scale/go-mongosh?style=flat-square&color=f0b429" alt="Stars"/></a>
-</p>
-
 A MongoDB Shell (`mongosh`) implementation written in Go. Provides a fully interactive JavaScript-based REPL for MongoDB with support for CRUD operations, aggregation, replica sets, sharding, user/role management, and more.
 
 ## Features
