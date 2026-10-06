@@ -1,0 +1,3 @@
+[stderr]
+BSONError: nope not a valid Decimal128 string
+[exit 1]

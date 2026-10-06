@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: no such command: 'nonExistentCommand'
+[exit 1]

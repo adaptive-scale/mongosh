@@ -1,0 +1,3 @@
+[stderr]
+MongoshDeprecatedError: [COMMON-10003] printSlaveReplicationInfo has been deprecated. Use printSecondaryReplicationInfo instead
+[exit 1]

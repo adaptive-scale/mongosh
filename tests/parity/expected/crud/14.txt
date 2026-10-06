@@ -1,0 +1,2 @@
+{ acknowledged: true, deletedCount: 2 }
+[exit 0]

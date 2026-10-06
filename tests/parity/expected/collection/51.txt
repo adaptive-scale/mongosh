@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: Database parity_collection_51 does not exist or is drop pending
+[exit 1]

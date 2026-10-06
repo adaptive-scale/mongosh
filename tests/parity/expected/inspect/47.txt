@@ -1,0 +1,2 @@
+[ WeakMap { <items unknown> }, WeakSet { <items unknown> }, 'Promise' ]
+[exit 0]

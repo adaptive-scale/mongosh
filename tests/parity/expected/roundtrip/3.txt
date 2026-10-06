@@ -1,0 +1,11 @@
+[
+  true,
+  6,
+  true,
+  0,
+  '1.5',
+  'number',
+  [ '_id', 'l', 'd', 'dec' ],
+  '{"_id":1,"l":{"high":0,"low":5,"unsigned":false},"d":"1970-01-01T00:00:00.000Z","dec":{"$numberDecimal":"1.5"}}'
+]
+[exit 0]

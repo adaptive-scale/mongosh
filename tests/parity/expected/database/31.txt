@@ -1,0 +1,7 @@
+ReadPreference {
+  mode: 'primary',
+  tags: undefined,
+  hedge: undefined,
+  maxStalenessSeconds: undefined
+}
+[exit 0]

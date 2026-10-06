@@ -1,0 +1,11 @@
+[
+  'configuredLogSizeMB',
+  'logSizeMB',
+  'usedMB',
+  'timeDiff',
+  'timeDiffHours',
+  'tFirst',
+  'tLast',
+  'now'
+]
+[exit 0]

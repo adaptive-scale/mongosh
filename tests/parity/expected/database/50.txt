@@ -1,0 +1,3 @@
+[stderr]
+MongoTransactionError: Transaction already in progress
+[exit 1]

@@ -1,0 +1,2 @@
+[ <1 empty item>, 1, <1 empty item>, 2, <2 empty items>, 3 ]
+[exit 0]

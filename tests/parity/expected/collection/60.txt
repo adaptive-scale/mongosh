@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10001] The "commandName" argument cannot be passed as an option to "runCommand".
+[exit 1]

@@ -1,0 +1,3 @@
+[stderr]
+BSONError: The regular expression option [q] is not supported
+[exit 1]

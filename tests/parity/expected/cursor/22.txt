@@ -1,0 +1,3 @@
+[stderr]
+MongoCursorInUseError: Cursor is already initialized
+[exit 1]

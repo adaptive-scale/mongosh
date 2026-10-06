@@ -1,0 +1,3 @@
+[stderr]
+MongoInvalidArgumentError: Option "allowDiskUse" requires a sort specification
+[exit 1]

@@ -1,0 +1,15 @@
+[
+  'parity_database_1',
+  true,
+  'other',
+  'string',
+  true,
+  64,
+  'object',
+  true,
+  true,
+  'number',
+  1,
+  true
+]
+[exit 0]

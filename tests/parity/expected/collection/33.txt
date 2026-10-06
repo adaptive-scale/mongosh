@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: ns does not exist: parity_collection_33.nothere
+[exit 1]

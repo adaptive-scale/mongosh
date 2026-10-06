@@ -49,14 +49,14 @@ assert_contains "$output" "db_two" "getSiblingDB chaining resolves to last db"
 print_group "db.help()"
 # ──────────────────────────────────────────────
 output=$(run_eval "${DB}.help()")
-assert_contains "$output" "Database Methods" "db.help() shows Database Methods"
+assert_contains "$output" "Database Class" "db.help() shows the Database Class help"
 assert_contains "$output" "runCommand" "db.help() mentions runCommand"
 
 # ──────────────────────────────────────────────
 print_group "collection.help()"
 # ──────────────────────────────────────────────
 output=$(run_eval "${DB}.admin_coll_test.help()")
-assert_contains "$output" "Collection Methods" "collection.help() shows Collection Methods"
+assert_contains "$output" "Collection Class" "collection.help() shows the Collection Class help"
 assert_contains "$output" "find" "collection.help() mentions find"
 assert_contains "$output" "insertOne" "collection.help() mentions insertOne"
 

@@ -1,0 +1,2 @@
+test.coll
+[exit 0]

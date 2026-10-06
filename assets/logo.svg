@@ -5,7 +5,7 @@
       <stop offset="100%" style="stop-color:#161b22"/>
     </linearGradient>
     <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#00ADD8"/>
+      <stop offset="0%" style="stop-color:#f78166"/>
       <stop offset="100%" style="stop-color:#13AA52"/>
     </linearGradient>
     <linearGradient id="leafGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -60,7 +60,7 @@
     </g>
 
     <!-- Cursor prompt -->
-    <text x="14" y="128" font-family="'SF Mono', 'Fira Code', 'Consolas', monospace" font-size="14" fill="#00ADD8" font-weight="bold">&gt;_</text>
+    <text x="14" y="128" font-family="'SF Mono', 'Fira Code', 'Consolas', monospace" font-size="14" fill="#f78166" font-weight="bold">&gt;_</text>
     <rect x="40" y="118" width="8" height="14" fill="#13AA52" opacity="0.8">
       <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.2s" repeatCount="indefinite"/>
     </rect>
@@ -69,13 +69,13 @@
   <!-- Main title -->
   <g transform="translate(245, 115)">
     <text font-family="'SF Pro Display', 'Inter', 'Segoe UI', system-ui, sans-serif" font-size="62" font-weight="800" letter-spacing="-2">
-      <tspan fill="#00ADD8">go</tspan><tspan fill="#6e7681">-</tspan><tspan fill="#13AA52">mongosh</tspan>
+      <tspan fill="#13AA52">mongo</tspan><tspan fill="#6e7681">-</tspan><tspan fill="#f78166">sh</tspan>
     </text>
   </g>
 
   <!-- Subtitle -->
   <text x="245" y="158" font-family="'SF Pro Display', 'Inter', 'Segoe UI', system-ui, sans-serif" font-size="17" fill="#8b949e" letter-spacing="0.5">
-    MongoDB Shell reimagined in Go
+    A mongosh-compatible MongoDB shell, written in Rust
   </text>
 
   <!-- Feature badges -->
@@ -83,7 +83,7 @@
     <!-- Badge: Interactive REPL -->
     <g>
       <rect width="120" height="26" rx="13" fill="#1c2333" stroke="#30363d" stroke-width="1"/>
-      <text x="60" y="17" text-anchor="middle" font-family="'SF Mono', monospace" font-size="11" fill="#00ADD8">Interactive REPL</text>
+      <text x="60" y="17" text-anchor="middle" font-family="'SF Mono', monospace" font-size="11" fill="#f78166">Interactive REPL</text>
     </g>
     <!-- Badge: Full CRUD -->
     <g transform="translate(130, 0)">
@@ -103,12 +103,12 @@
     <!-- Badge: JS Runtime -->
     <g transform="translate(475, 0)">
       <rect width="100" height="26" rx="13" fill="#1c2333" stroke="#30363d" stroke-width="1"/>
-      <text x="50" y="17" text-anchor="middle" font-family="'SF Mono', monospace" font-size="11" fill="#f78166">JS Runtime</text>
+      <text x="50" y="17" text-anchor="middle" font-family="'SF Mono', monospace" font-size="11" fill="#58a6ff">mongosh parity</text>
     </g>
   </g>
 
   <!-- Version / corner accent -->
   <g transform="translate(810, 240)">
-    <text font-family="'SF Mono', monospace" font-size="12" fill="#30363d">v1.0</text>
+    <text font-family="'SF Mono', monospace" font-size="12" fill="#30363d">v2.0</text>
   </g>
 </svg>

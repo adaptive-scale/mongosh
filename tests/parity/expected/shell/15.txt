@@ -1,0 +1,3 @@
+[stderr]
+MongoInvalidArgumentError: Operation "limit" requires an integer
+[exit 1]

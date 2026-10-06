@@ -1,0 +1,2 @@
+{ acknowledged: true, insertedId: 1 }
+[exit 0]

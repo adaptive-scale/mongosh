@@ -1,0 +1,4 @@
+before
+[stderr]
+Error: script failure
+[exit 1]

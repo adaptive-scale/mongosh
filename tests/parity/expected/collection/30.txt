@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: index not found with name [nope]
+[exit 1]

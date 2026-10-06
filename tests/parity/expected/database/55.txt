@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10001] Expected first parameter to be a host-and-port string of arbiter, but got {"host":"x"}
+[exit 1]

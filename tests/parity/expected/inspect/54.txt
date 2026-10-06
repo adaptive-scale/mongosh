@@ -1,0 +1,6 @@
+[
+  [Object: null prototype] { a: 1 },
+  {},
+  Object <[Object: null prototype] {}> {}
+]
+[exit 0]

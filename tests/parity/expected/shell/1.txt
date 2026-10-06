@@ -1,0 +1,2 @@
+parity_shell_1 parity_shell_1.c [ { _id: 1 }, { _id: 2 } ] { acknowledged: true, insertedId: 2 } str 5 [ 1, 'a' ] { a: 'b' } null 
+[exit 0]

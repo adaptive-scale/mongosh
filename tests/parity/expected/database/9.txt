@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: unknown top level operator: $bad. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.
+[exit 1]

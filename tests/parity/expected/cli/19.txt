@@ -1,0 +1,7 @@
+script2 sees undefined [ 2, 4, 6 ]
+{
+  nested: {
+    ok: true
+  }
+}
+[exit 0]

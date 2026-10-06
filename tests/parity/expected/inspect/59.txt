@@ -1,0 +1,15 @@
+{
+  und: undefined,
+  nul: null,
+  nan: NaN,
+  inf: -Infinity,
+  zero: 0,
+  negzero: -0,
+  t: true,
+  f: false,
+  e: '',
+  big: 9007199254740992,
+  small: 5e-324,
+  max: 1.7976931348623157e+308
+}
+[exit 0]

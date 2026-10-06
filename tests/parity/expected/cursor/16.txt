@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10001] Cannot serialize a cursor to JSON. Did you mean to call .toArray() first?
+[exit 1]

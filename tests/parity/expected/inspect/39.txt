@@ -1,0 +1,9 @@
+[
+  Point { x: 1, y: 2 },
+  Point { x: 3, y: 4 },
+  {},
+  [class Point],
+  [class (anonymous)],
+  [class A extends Point]
+]
+[exit 0]

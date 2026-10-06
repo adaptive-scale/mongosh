@@ -1,0 +1,3 @@
+[stderr]
+MongoCursorExhaustedError: Cursor is exhausted
+[exit 1]

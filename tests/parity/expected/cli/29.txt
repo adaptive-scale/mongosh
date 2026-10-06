@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [SHAPI-10004] No connected database
+[exit 1]

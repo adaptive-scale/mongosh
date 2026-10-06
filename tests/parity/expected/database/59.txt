@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: primaries don't sync
+[exit 1]

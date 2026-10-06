@@ -1,5 +1,5 @@
 #!/bin/bash
-# Test helpers for go-mongosh shell tests
+# Test helpers for the mongo-sh end-to-end shell tests
 
 # Colors
 RED='\033[0;31m'
@@ -13,28 +13,34 @@ TESTS_PASSED=0
 TESTS_FAILED=0
 TESTS_TOTAL=0
 
-# Binary and connection settings
+# Binary and connection settings.
+#
+# MONGOSH selects the shell under test. It defaults to the release build of
+# this repository; point it at a real `mongosh` to check that the suite's
+# expectations hold for the reference implementation too.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MONGOSH="${SCRIPT_DIR}/../mongosh"
+MONGOSH="${MONGOSH:-${SCRIPT_DIR}/../target/release/mongo-sh}"
 
-# Load credentials from .env file
-if [ -f "${SCRIPT_DIR}/.env" ]; then
-    source "${SCRIPT_DIR}/.env"
-else
-    echo "ERROR: tests/.env not found. Copy tests/.env.example to tests/.env and fill in credentials."
-    exit 1
+# Connection settings come from the environment, or from tests/.env.
+if [ -z "${MONGO_URI:-}" ]; then
+    if [ -f "${SCRIPT_DIR}/.env" ]; then
+        source "${SCRIPT_DIR}/.env"
+    else
+        echo "ERROR: tests/.env not found. Copy tests/.env.example to tests/.env and fill in credentials."
+        exit 1
+    fi
 fi
 
-CONN_ARGS="-uri ${MONGO_URI} -u ${MONGO_USER} -p ${MONGO_PASS}"
+CONN_ARGS=("${MONGO_URI}" -u "${MONGO_USER}" -p "${MONGO_PASS}" --authenticationDatabase "${MONGO_AUTH_DB:-admin}")
 
 # Test database used for all tests (cleaned up at end)
-TEST_DB="go_mongosh_test_db"
+TEST_DB="mongo_sh_test_db"
 
 # Run a mongosh eval command and capture output
 # Usage: run_eval "js expression"
 run_eval() {
     local expr="$1"
-    ${MONGOSH} ${CONN_ARGS} -quiet -eval "$expr" 2>&1
+    "${MONGOSH}" "${CONN_ARGS[@]}" --quiet --eval "$expr" 2>&1
 }
 
 # Assert that output contains expected string

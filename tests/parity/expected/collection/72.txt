@@ -1,0 +1,3 @@
+[stderr]
+TypeError: Cannot set properties of null (setting 'a')
+[exit 1]

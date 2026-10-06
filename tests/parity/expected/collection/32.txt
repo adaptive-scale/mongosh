@@ -1,0 +1,7 @@
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { a: 1 }, name: 'a_1' },
+  { v: 2, key: { b: 1 }, name: 'bidx', unique: true, sparse: true },
+  { v: 2, key: { a: 1, b: -1 }, name: 'a_1_b_-1', hidden: true }
+]
+[exit 0]

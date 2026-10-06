@@ -1,0 +1,177 @@
+rs0 [direct: primary] test> switched to db parity_deepinspect
+rs0 [direct: primary] parity_deepinspect> { ok: 1, dropped: 'parity_deepinspect' }
+rs0 [direct: primary] parity_deepinspect> true
+rs0 [direct: primary] parity_deepinspect> 
+rs0 [direct: primary] parity_deepinspect> [ '_id', 'd' ]
+rs0 [direct: primary] parity_deepinspect> {
+  wrapped: {
+    _id: 'deep',
+    d: { a: { b: { c: { d: { e: { f: { g: { h: { i: 1 } } } } } } } } }
+  }
+}
+rs0 [direct: primary] parity_deepinspect> {
+  _id: 'deep',
+  d: { a: { b: { c: { d: { e: { f: { g: { h: { i: 1 } } } } } } } } }
+}
+
+rs0 [direct: primary] parity_deepinspect> {
+  _id: 'deep',
+  d: {
+    a: {
+      b: {
+        c: {
+          d: {
+            e: {
+              f: {
+                g: {
+                  h: {
+                    i: 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+rs0 [direct: primary] parity_deepinspect> {
+  _id: 'deep',
+  d: { a: { b: { c: { d: { e: { f: { g: { h: { i: 1 } } } } } } } } },
+  local: {
+    l1: {
+      l2: {
+        l3: {
+          l4: {
+            l5: { l6: { l7: { l8: 1 } } }
+          }
+        }
+      }
+    }
+  }
+}
+rs0 [direct: primary] parity_deepinspect> {"a":{"b":{"c":{"d":{"e":{"f":{"g":{"h":{"i":1}}}}}}}}}
+rs0 [direct: primary] parity_deepinspect> {
+  _id: 'deep',
+  d: { a: { b: { c: { d: { e: { f: { g: { h: { i: 1 } } } } } } } } },
+  local: {
+    l1: {
+      l2: {
+        l3: { l4: { l5: { l6: [Object] } } }
+      }
+    }
+  }
+}
+rs0 [direct: primary] parity_deepinspect> [
+  {
+    _id: 'deep',
+    d: { a: { b: { c: { d: { e: { f: { g: { h: { i: 1 } } } } } } } } }
+  }
+]
+rs0 [direct: primary] parity_deepinspect> 105
+rs0 [direct: primary] parity_deepinspect> {
+  _id: 'deep',
+  arr: [
+     0,  1,  2,  3,   4,   5,   6,   7,   8,  9, 10, 11,
+    12, 13, 14, 15,  16,  17,  18,  19,  20, 21, 22, 23,
+    24, 25, 26, 27,  28,  29,  30,  31,  32, 33, 34, 35,
+    36, 37, 38, 39,  40,  41,  42,  43,  44, 45, 46, 47,
+    48, 49, 50, 51,  52,  53,  54,  55,  56, 57, 58, 59,
+    60, 61, 62, 63,  64,  65,  66,  67,  68, 69, 70, 71,
+    72, 73, 74, 75,  76,  77,  78,  79,  80, 81, 82, 83,
+    84, 85, 86, 87,  88,  89,  90,  91,  92, 93, 94, 95,
+    96, 97, 98, 99, 100, 101, 102, 103, 104
+  ]
+}
+rs0 [direct: primary] parity_deepinspect> 10010
+rs0 [direct: primary] parity_deepinspect> { _id: 'deep', s: 'xxxxx' }
+rs0 [direct: primary] parity_deepinspect> [
+   0,  1,  2,  3,   4,   5,   6,   7,   8,  9, 10, 11,
+  12, 13, 14, 15,  16,  17,  18,  19,  20, 21, 22, 23,
+  24, 25, 26, 27,  28,  29,  30,  31,  32, 33, 34, 35,
+  36, 37, 38, 39,  40,  41,  42,  43,  44, 45, 46, 47,
+  48, 49, 50, 51,  52,  53,  54,  55,  56, 57, 58, 59,
+  60, 61, 62, 63,  64,  65,  66,  67,  68, 69, 70, 71,
+  72, 73, 74, 75,  76,  77,  78,  79,  80, 81, 82, 83,
+  84, 85, 86, 87,  88,  89,  90,  91,  92, 93, 94, 95,
+  96, 97, 98, 99, 100, 101, 102, 103, 104
+]
+rs0 [direct: primary] parity_deepinspect> { isCached: false, stage: 'COLLSCAN', direction: 'forward' }
+rs0 [direct: primary] parity_deepinspect> [
+  {
+    _id: 'deep',
+    d: { a: { b: { c: { d: { e: { f: { g: { h: { i: 1 } } } } } } } } }
+  }
+]
+rs0 [direct: primary] parity_deepinspect> { acknowledged: true, insertedIds: { '0': 0, '1': 1, '2': 2 } }
+rs0 [direct: primary] parity_deepinspect> [
+  {
+    _id: 0,
+    deep: {
+      a: {
+        b: { c: { d: { e: { f: { g: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' } } } } }
+      }
+    }
+  },
+  {
+    _id: 1,
+    deep: {
+      a: {
+        b: { c: { d: { e: { f: { g: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' } } } } }
+      }
+    }
+  }
+]
+rs0 [direct: primary] parity_deepinspect> {
+  _id: 0,
+  deep: {
+    a: {
+      b: { c: { d: { e: { f: { g: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' } } } } }
+    }
+  }
+}
+rs0 [direct: primary] parity_deepinspect> {
+  _id: 0,
+  deep: {
+    a: {
+      b: { c: { d: { e: { f: { g: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' } } } } }
+    }
+  }
+}
+rs0 [direct: primary] parity_deepinspect> [
+  {
+    _id: 1,
+    deep: {
+      a: {
+        b: { c: { d: { e: { f: { g: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' } } } } }
+      }
+    }
+  },
+  {
+    local: {
+      a: {
+        b: { c: { d: { e: [Object] } } }
+      }
+    }
+  }
+]
+rs0 [direct: primary] parity_deepinspect> [
+  {
+    mapped: {
+      a: {
+        b: { c: { d: { e: { f: { g: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' } } } } }
+      }
+    }
+  },
+  {
+    mapped: {
+      a: {
+        b: { c: { d: { e: { f: { g: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' } } } } }
+      }
+    }
+  }
+]
+rs0 [direct: primary] parity_deepinspect> { ok: 1, dropped: 'parity_deepinspect' }
+rs0 [direct: primary] parity_deepinspect> [exit 0]

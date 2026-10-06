@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10001] 'nope' is not a valid argument for "show".
+[exit 1]

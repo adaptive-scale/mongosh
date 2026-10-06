@@ -1,0 +1,6 @@
+{
+  a: 'line1\n' +
+    'line2\n' +
+    'line3 is here and it is quite long so that it exceeds limits for sure, yes indeed'
+}
+[exit 0]

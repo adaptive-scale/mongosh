@@ -1,0 +1,21 @@
+{
+  "a": {
+    "$numberInt": "1"
+  },
+  "f": {
+    "$numberDouble": "1.5"
+  },
+  "s": "x",
+  "n": null,
+  "arr": [
+    {
+      "$numberInt": "1"
+    },
+    {
+      "b": {
+        "$numberInt": "2"
+      }
+    }
+  ]
+}
+[exit 0]

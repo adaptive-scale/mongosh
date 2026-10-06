@@ -1,0 +1,2 @@
+{ toString: [Function: toString], valueOf: [Function: valueOf] }
+[exit 0]

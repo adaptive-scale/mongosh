@@ -1,0 +1,2 @@
+mongodb://<credentials>@127.0.0.1:<port>/somedb?authSource=admin&directConnection=true&serverSelectionTimeoutMS=2000&appName=<shell>
+[exit 0]

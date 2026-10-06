@@ -1,0 +1,3 @@
+[stderr]
+TypeError: x.y is not a function
+[exit 1]

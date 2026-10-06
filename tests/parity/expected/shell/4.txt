@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: Document failed validation
+[exit 1]

@@ -1,0 +1,6 @@
+[
+  false, null, null,
+  [],    0,    true,
+  true
+]
+[exit 0]

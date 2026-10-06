@@ -62,19 +62,19 @@ print_group "count"
 output=$(run_eval "${COLL}.find({}).count()")
 assert_contains "$output" "20" "count returns 20 for all documents"
 
-output=$(run_eval "${COLL}.find({seq: {\\\$gt: 15}}).count()")
+output=$(run_eval "${COLL}.find({seq: {\$gt: 15}}).count()")
 assert_contains "$output" "5" "count with filter returns 5"
 
 # ──────────────────────────────────────────────
 print_group "forEach"
 # ──────────────────────────────────────────────
-output=$(run_eval "var items = []; ${COLL}.find({seq: {\\\$lte: 3}}).sort({seq: 1}).forEach(function(d) { items.push(d.name) }); print(items.join(','))")
+output=$(run_eval "var items = []; ${COLL}.find({seq: {\$lte: 3}}).sort({seq: 1}).forEach(function(d) { items.push(d.name) }); print(items.join(','))")
 assert_contains "$output" "item_1,item_2,item_3" "forEach iterates in order"
 
 # ──────────────────────────────────────────────
 print_group "map"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.find({seq: {\\\$lte: 3}}).sort({seq: 1}).map(function(d) { return d.value })")
+output=$(run_eval "${COLL}.find({seq: {\$lte: 3}}).sort({seq: 1}).map(function(d) { return d.value })")
 assert_contains "$output" "10" "map returns value 10"
 assert_contains "$output" "20" "map returns value 20"
 assert_contains "$output" "30" "map returns value 30"
@@ -88,7 +88,7 @@ assert_contains "$output" "true" "hasNext returns true when docs exist"
 # ──────────────────────────────────────────────
 print_group "Chained operations"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.find({value: {\\\$gte: 100}}).sort({value: -1}).limit(5).skip(1).toArray()")
+output=$(run_eval "${COLL}.find({value: {\$gte: 100}}).sort({value: -1}).limit(5).skip(1).toArray()")
 exit_code=$?
 assert_exit_success "$exit_code" "chained sort.limit.skip executes successfully"
 

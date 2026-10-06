@@ -1,0 +1,21 @@
+[
+  'parity_database_5',
+  Long('1'),
+  Long('0'),
+  Long('1'),
+  Long('1'),
+  Long('1'),
+  1,
+  Long('1024'),
+  Long('2'),
+  [
+    'db',          'collections',
+    'views',       'objects',
+    'avgObjSize',  'dataSize',
+    'storageSize', 'indexes',
+    'indexSize',   'totalSize',
+    'scaleFactor', 'fsUsedSize',
+    'fsTotalSize', 'ok'
+  ]
+]
+[exit 0]

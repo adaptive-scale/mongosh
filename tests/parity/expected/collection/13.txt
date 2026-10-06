@@ -1,0 +1,9 @@
+[
+  { _id: 1, a: 1, v: 0 },
+  { _id: 1, a: 1, v: 10 },
+  { _id: 1, replaced: true },
+  { _id: 2, a: 1, v: 0 },
+  { _id: 5, u: 1 },
+  { _id: 5, u: 1, last: true }
+]
+[exit 0]

@@ -1,0 +1,11 @@
+{
+  acknowledged: true,
+  insertedCount: 1,
+  insertedIds: { '0': 3 },
+  matchedCount: 1,
+  modifiedCount: 1,
+  deletedCount: 1,
+  upsertedCount: 1,
+  upsertedIds: { '3': 7 }
+}
+[exit 0]

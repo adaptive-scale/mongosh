@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10001] "2020-01-01T10:20:30+05" is not a valid ISODate
+[exit 1]

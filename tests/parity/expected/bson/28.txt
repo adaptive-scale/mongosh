@@ -1,0 +1,3 @@
+[stderr]
+BSONError: division by zero
+[exit 1]

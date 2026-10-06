@@ -1,0 +1,3 @@
+[stderr]
+MongoInvalidArgumentError: Invalid BulkOperation, Batch cannot be empty
+[exit 1]

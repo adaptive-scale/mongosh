@@ -1,0 +1,13 @@
+[
+  'rs0',
+  1,
+  'PRIMARY',
+  'rs0',
+  'localhost:27017',
+  1,
+  'rs0',
+  true,
+  true,
+  'number'
+]
+[exit 0]

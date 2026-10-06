@@ -1,0 +1,13 @@
+[
+  2,                        1,
+  'parity_collection_53.c', 1,
+  false,                    false,
+  'number',                 'number',
+  [ '_id_' ],               1024,
+  2,                        'number',
+  'number',                 'number',
+  'number',                 true,
+  2,                        'parity_collection_53.c',
+  true,                     true
+]
+[exit 0]

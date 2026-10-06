@@ -1,0 +1,4 @@
+Warning: MongoshWarning: [SHAPI-10003] You are not connected to a mongos. This command may not work as expected.
+[stderr]
+MongoshInvalidInputError: [SHAPI-10003] This db does not have sharding enabled. Be sure you are connecting to a mongos from the shell and not to a mongod.
+[exit 1]

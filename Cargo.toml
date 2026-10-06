@@ -1,0 +1,33 @@
+[package]
+name = "mongo-sh"
+version = "2.0.0"
+edition = "2021"
+description = "A MongoDB shell (mongosh) implementation written in Rust"
+license = "MIT"
+repository = "https://github.com/adaptive-scale/mongo-sh"
+readme = "Readme.md"
+keywords = ["mongodb", "mongosh", "shell", "repl"]
+categories = ["command-line-utilities", "database"]
+
+[[bin]]
+name = "mongo-sh"
+path = "src/main.rs"
+
+[dependencies]
+mongodb = { version = "3.9", features = ["zlib-compression", "snappy-compression"] }
+rquickjs = { version = "0.14", features = ["properties"] }
+rustyline = "18"
+tokio = { version = "1", features = ["rt-multi-thread", "signal", "time", "macros", "sync"] }
+futures-util = { version = "0.3", default-features = false }
+rpassword = "7"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true
+
+# The QuickJS bindings are pre-generated for every release target except
+# Windows on ARM64 (gnullvm), where they are generated at build time.
+[target.'cfg(all(windows, target_arch = "aarch64", target_env = "gnu"))'.dependencies]
+rquickjs = { version = "0.14", features = ["bindgen"] }

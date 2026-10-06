@@ -1,0 +1,14 @@
+[
+  20,
+  'Setting "displayBatchSize" has been changed',
+  5,
+  'Option "nope" is not available in this environment',
+  undefined,
+  'Setting "nope" has been reset to its default value',
+  'Setting "displayBatchSize" has been reset to its default value',
+  20,
+  6,
+  3,
+  undefined
+]
+[exit 0]

@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: User "su@parity_database_20" already exists
+[exit 1]

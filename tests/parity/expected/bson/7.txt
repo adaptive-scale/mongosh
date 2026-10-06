@@ -1,0 +1,17 @@
+[
+  Timestamp(<ts>),
+  100,
+  5,
+  100,
+  5,
+  '429496729605',
+  '{"$timestamp":"429496729605"}',
+  Timestamp(<ts>),
+  Timestamp(<ts>),
+  Timestamp(<ts>),
+  true,
+  true,
+  -1,
+  429496729605
+]
+[exit 0]

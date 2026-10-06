@@ -1,0 +1,2 @@
+[ { causalConsistency: false }, 'undefined', 'undefined' ]
+[exit 0]

@@ -1,0 +1,10 @@
+[
+  'object',
+  'object',
+  'object',
+  'undefined',
+  'object',
+  'function',
+  'function'
+]
+[exit 0]

@@ -1,0 +1,3 @@
+[stderr]
+MongoNotConnectedError: Client must be connected before running operations
+[exit 1]

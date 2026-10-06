@@ -1,0 +1,6 @@
+[stderr]
+SyntaxError: 'await' is only allowed within async functions and at the top levels of modules. (1:0)
+
+> 1 | await Promise.resolve(42)
+    | ^
+[exit 1]

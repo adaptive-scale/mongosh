@@ -1,0 +1,3 @@
+[stderr]
+TypeError: x is not a function
+[exit 1]

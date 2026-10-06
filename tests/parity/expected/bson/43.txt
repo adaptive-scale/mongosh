@@ -1,0 +1,10 @@
+[
+  '01234567-89ab-cdef-0123-456789abcdef',
+  '"01234567-89ab-cdef-0123-456789abcdef"',
+  'UUID',
+  [ 'buffer', 'sub_type', 'position' ],
+  true,
+  true,
+  4
+]
+[exit 0]

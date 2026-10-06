@@ -1,0 +1,3 @@
+[stderr]
+MongoInvalidArgumentError: Argument "operations" must be an array of documents
+[exit 1]

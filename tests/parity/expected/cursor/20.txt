@@ -1,0 +1,3 @@
+[stderr]
+MongoshUnimplementedError: [COMMON-90002] the slaveOk option is not supported.
+[exit 1]

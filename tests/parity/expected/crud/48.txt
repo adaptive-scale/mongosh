@@ -1,0 +1,12 @@
+[
+  'explainVersion',
+  'queryPlanner',
+  'queryShapeHash',
+  'command',
+  'serverInfo',
+  'serverParameters',
+  'ok',
+  '$clusterTime',
+  'operationTime'
+]
+[exit 0]

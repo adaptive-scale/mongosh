@@ -1,0 +1,3 @@
+[stderr]
+MongoshUnimplementedError: [COMMON-90002] It is not possible to set causal consistency for an entire connection due to the driver, use startSession({causalConsistency: <>}) instead.
+[exit 1]

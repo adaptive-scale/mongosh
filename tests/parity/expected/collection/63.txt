@@ -1,0 +1,3 @@
+[stderr]
+MongoshDeprecatedError: [COMMON-10003] PlanCache.listQueryShapes was deprecated, please use PlanCache.list instead
+[exit 1]

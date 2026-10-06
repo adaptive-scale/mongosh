@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10001] setLogLevel component must be a string: got number
+[exit 1]

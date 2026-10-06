@@ -1,0 +1,20 @@
+[
+  Binary.createFromBase64('aGVsbG8gd29ybGQ=', 0),
+  0,
+  11,
+  'hello world',
+  '68656c6c6f20776f726c64',
+  'aGVsbG8gd29ybGQ=',
+  '"aGVsbG8gd29ybGQ="',
+  11,
+  11,
+  true,
+  MD5('000102'),
+  Binary.createFromBase64('AP8=', 2),
+  Binary.createFromBase64('AQID', 0),
+  UUID('<uuid>'),
+  Binary.createFromBase64('ASNFZ4mrze8BI0VniavN7w==', 3),
+  Binary.createFromBase64('AAEC', 4),
+  Binary.createFromBase64('q80=', 128)
+]
+[exit 0]

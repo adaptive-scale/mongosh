@@ -1,0 +1,3 @@
+[stderr]
+TypeError: db.c.find().sortt is not a function
+[exit 1]

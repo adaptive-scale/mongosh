@@ -1,0 +1,3 @@
+[stderr]
+BSONError: empty string
+[exit 1]

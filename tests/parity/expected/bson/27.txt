@@ -1,0 +1,3 @@
+[stderr]
+BSONError: interior hyphen
+[exit 1]

@@ -1,0 +1,4 @@
+7
+script1 ran: 14
+object true
+[exit 0]

@@ -1,0 +1,3 @@
+Warning: If this is a tailable cursor with awaitData, and there are no documents in the batch, this method will will block. Use tryNext if you want to check if there are any documents without waiting, or cursor.disableBlockWarnings() if you want to disable this warning.
+[ 1, 2, null, false, false ]
+[exit 0]

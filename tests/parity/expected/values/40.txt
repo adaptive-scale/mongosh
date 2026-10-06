@@ -1,0 +1,2 @@
+[ 1, 2.5, 1e+21, 1e-7, NaN, Infinity, -Infinity, 255 ]
+[exit 0]

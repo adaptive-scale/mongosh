@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: Expected field "op" to have numeric type, but found null
+[exit 1]

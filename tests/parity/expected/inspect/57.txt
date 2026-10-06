@@ -1,0 +1,2 @@
+[Arguments] { '0': 1, '1': 'two', '2': { three: 3 } }
+[exit 0]

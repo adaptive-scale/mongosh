@@ -1,0 +1,4 @@
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+[stderr]
+MongoInvalidArgumentError: Update document requires atomic operators
+[exit 1]

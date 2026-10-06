@@ -1,0 +1,11 @@
+[
+  'object',   'object',   'object',
+  'object',   'function', 'function',
+  'function', 'function', 'function',
+  'function', 'function', 'function',
+  'function', 'function', 'function',
+  'function', 'function', 'function',
+  'function', 'function', 'function',
+  'function', 'object'
+]
+[exit 0]

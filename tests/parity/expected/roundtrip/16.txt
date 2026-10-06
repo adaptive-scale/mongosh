@@ -1,0 +1,2 @@
+{ _id: 1, a: { replaced: true }, set: {}, err: {}, cls: { x: 1 } }
+[exit 0]

@@ -10,8 +10,8 @@ print_header "Connection & CLI Tests"
 # ──────────────────────────────────────────────
 print_group "Version flag"
 # ──────────────────────────────────────────────
-output=$(${MONGOSH} -version 2>&1)
-assert_contains "$output" "go-mongosh" "version flag prints version string"
+output=$("${MONGOSH}" --version 2>&1)
+assert_contains "$output" "^[0-9][0-9]*\.[0-9][0-9]*\.[0-9]" "version flag prints the version number"
 
 # ──────────────────────────────────────────────
 print_group "Basic connectivity"
@@ -19,8 +19,8 @@ print_group "Basic connectivity"
 output=$(run_eval "1 + 1")
 assert_contains "$output" "2" "eval simple arithmetic"
 
-output=$(run_eval "'hello ' + 'world'")
-assert_contains "$output" "hello world" "eval string concatenation"
+output=$(run_eval "['hello', 'world'].join(' ')")
+assert_contains "$output" "hello world" "eval string expression"
 
 # ──────────────────────────────────────────────
 print_group "Server info"
@@ -35,11 +35,19 @@ assert_exit_success "$exit_code" "db.getName() exits successfully"
 # ──────────────────────────────────────────────
 print_group "Quiet mode"
 # ──────────────────────────────────────────────
-output=$(${MONGOSH} ${CONN_ARGS} -quiet -eval "1+1" 2>&1)
+output=$("${MONGOSH}" "${CONN_ARGS[@]}" --quiet --eval "1+1" 2>&1)
 assert_not_contains "$output" "Connecting to" "quiet mode suppresses banner"
 
-output=$(${MONGOSH} ${CONN_ARGS} -eval "1+1" 2>&1)
-assert_contains "$output" "Connecting to" "non-quiet mode shows banner"
+# Like mongosh, a script run (--eval or a file) prints only its result; the
+# banner belongs to the interactive shell.
+output=$("${MONGOSH}" "${CONN_ARGS[@]}" --eval "1+1" 2>&1)
+assert_equals "$output" "2" "--eval prints only the result"
+
+output=$("${MONGOSH}" "${CONN_ARGS[@]}" --quiet < /dev/null 2>&1)
+assert_not_contains "$output" "Connecting to" "quiet interactive start suppresses banner"
+
+output=$("${MONGOSH}" "${CONN_ARGS[@]}" < /dev/null 2>&1)
+assert_contains "$output" "Using MongoDB" "interactive start shows the banner"
 
 # ──────────────────────────────────────────────
 print_group "Print and console functions"

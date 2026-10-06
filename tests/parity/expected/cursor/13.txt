@@ -1,0 +1,3 @@
+[stderr]
+MongoInvalidArgumentError: Operation "batchSize" requires an integer
+[exit 1]

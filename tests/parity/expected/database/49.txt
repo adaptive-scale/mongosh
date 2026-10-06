@@ -1,0 +1,3 @@
+[stderr]
+MongoTransactionError: No transaction started
+[exit 1]

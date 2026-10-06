@@ -1,0 +1,22 @@
+{
+  users: [
+    {
+      _id: 'parity_database_14.u1',
+      userId: UUID('<uuid>'),
+      user: 'u1',
+      db: 'parity_database_14',
+      roles: [ { role: 'read', db: 'parity_database_14' } ],
+      mechanisms: [ 'SCRAM-SHA-1', 'SCRAM-SHA-256' ]
+    }
+  ],
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp(<ts>),
+    signature: {
+      hash: Binary.createFromBase64('<hash>', 0),
+      keyId: Long('<keyId>')
+    }
+  },
+  operationTime: Timestamp(<ts>)
+}
+[exit 0]

@@ -1,0 +1,6 @@
+[stderr]
+SyntaxError: Unexpected token, expected "(" (1:124)
+
+> 1 | db = db.getSiblingDB('parity_cursor_32'); db.c.insertMany(Array.from({length: 5}, (_, i) => ({_id: i}))); var out = []; for await (const d of db.c.find().sort({_id: 1})) out.push(d._id); out
+    |                                                                                                                             ^
+[exit 1]

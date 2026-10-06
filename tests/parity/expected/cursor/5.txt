@@ -1,0 +1,7 @@
+[
+  0,    true,  7,     0,
+  6,    false, false, 29,
+  true, true,  false, null,
+  null, 0
+]
+[exit 0]

@@ -1,0 +1,2 @@
+<ref *1> [ 1, [Circular *1] ]
+[exit 0]

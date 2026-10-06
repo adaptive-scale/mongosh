@@ -1,0 +1,18 @@
+[
+  BSONSymbol(5),
+  MinKey(),
+  Int32(0),
+  Double(NaN),
+  Long('0'),
+  Long('0'),
+  Int32(0),
+  Int32(5),
+  Int32(-5),
+  Int32(-2147483648),
+  Long('5'),
+  Long('4294967291'),
+  BSONRegExp('a', 'ix'),
+  Code(''),
+  BSONSymbol(undefined)
+]
+[exit 0]

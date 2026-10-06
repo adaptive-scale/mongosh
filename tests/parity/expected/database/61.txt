@@ -1,0 +1,3 @@
+Warning: MongoshWarning: [SHAPI-10003] You are not connected to a mongos. This command may not work as expected.
+true
+[exit 0]

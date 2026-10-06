@@ -26,14 +26,14 @@ run_eval "${COLL}.insertMany([
 # ──────────────────────────────────────────────
 print_group "findOneAndUpdate with returnDocument:'after'"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.findOneAndUpdate({name: 'Alice'}, {\\\$set: {score: 99}}, {returnDocument: 'after'})")
+output=$(run_eval "${COLL}.findOneAndUpdate({name: 'Alice'}, {\$set: {score: 99}}, {returnDocument: 'after'})")
 assert_contains "$output" "99" "returnDocument after: returns updated score 99"
 assert_contains "$output" "Alice" "returnDocument after: returns correct document"
 
 # ──────────────────────────────────────────────
 print_group "findOneAndUpdate with upsert (no match)"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.findOneAndUpdate({name: 'Zara'}, {\\\$set: {name: 'Zara', score: 50}}, {upsert: true, returnDocument: 'after'})")
+output=$(run_eval "${COLL}.findOneAndUpdate({name: 'Zara'}, {\$set: {name: 'Zara', score: 50}}, {upsert: true, returnDocument: 'after'})")
 assert_contains "$output" "Zara" "upsert creates new document"
 assert_contains "$output" "50" "upserted document has correct score"
 
@@ -44,7 +44,7 @@ assert_contains "$output" "50" "upserted document persists in collection"
 # ──────────────────────────────────────────────
 print_group "findOneAndUpdate with projection"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.findOneAndUpdate({name: 'Bob'}, {\\\$set: {score: 21}}, {projection: {name: 1, _id: 0}, returnDocument: 'after'})")
+output=$(run_eval "${COLL}.findOneAndUpdate({name: 'Bob'}, {\$set: {score: 21}}, {projection: {name: 1, _id: 0}, returnDocument: 'after'})")
 assert_contains "$output" "Bob" "projection includes name"
 assert_not_contains "$output" "city" "projection excludes city"
 
@@ -52,14 +52,14 @@ assert_not_contains "$output" "city" "projection excludes city"
 print_group "findOneAndUpdate with sort"
 # ──────────────────────────────────────────────
 # Update the NYC person with the lowest score (Alice=99 after earlier update, Charlie=30)
-output=$(run_eval "${COLL}.findOneAndUpdate({city: 'NYC'}, {\\\$set: {tagged: true}}, {sort: {score: 1}, returnDocument: 'after'})")
+output=$(run_eval "${COLL}.findOneAndUpdate({city: 'NYC'}, {\$set: {tagged: true}}, {sort: {score: 1}, returnDocument: 'after'})")
 assert_contains "$output" "Charlie" "sort ascending: updates lowest-scored NYC doc (Charlie=30)"
 assert_contains "$output" "tagged" "sort: updated document has new field"
 
 # ──────────────────────────────────────────────
 print_group "findOneAndUpdate returns null (no match)"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.findOneAndUpdate({name: 'NonExistent'}, {\\\$set: {x: 1}})")
+output=$(run_eval "${COLL}.findOneAndUpdate({name: 'NonExistent'}, {\$set: {x: 1}})")
 assert_contains "$output" "null" "no match without upsert returns null"
 
 # ──────────────────────────────────────────────
@@ -100,8 +100,9 @@ assert_not_contains "$output" "score" "projection excludes score from deleted do
 # ──────────────────────────────────────────────
 print_group "findAndModify raw command"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.findAndModify({query: {name: 'Bob'}, update: {\\\$set: {status: 'done'}}, new: true})")
-assert_contains "$output" "value" "findAndModify returns result with value field"
+output=$(run_eval "${COLL}.findAndModify({query: {name: 'Bob'}, update: {\$set: {status: 'done'}}, new: true})")
+assert_contains "$output" "status: 'done'" "findAndModify with new: true returns the updated document"
+assert_contains "$output" "name: 'Bob'" "findAndModify returns the matched document"
 assert_contains "$output" "done" "findAndModify updated document has new status"
 
 teardown_test_db

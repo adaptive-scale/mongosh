@@ -1,0 +1,9 @@
+{
+  a: Long('5'),
+  b: ObjectId('<oid>'),
+  c: ISODate('1970-01-01T00:00:00.000Z'),
+  e: Int32(5),
+  f: Double(1.5),
+  g: Double(2)
+}
+[exit 0]

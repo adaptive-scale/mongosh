@@ -1,0 +1,2 @@
+[ { doubled: 4, file: 'undefined', dir: 'undefined' }, true, true ]
+[exit 0]

@@ -1,0 +1,40 @@
+use __DB__
+db.dropDatabase()
+db.c.insertMany(Array.from({length: 45}, (_, i) => ({_id: i})))
+db.c.find().sort({_id: 1})
+it
+it
+it
+db.c.find({_id: 100})
+it
+let a = 5
+let a = 6
+a
+const k = 1
+var o = 1; for (var i = 0; i < 9; i++) o = {n: o}; o
+Array.from({length: 105}, (_, i) => i)
+'x'.repeat(10020).length
+show collections
+db
+db.c
+function f(x) {
+  return x * 2
+}
+f(21)
+db.c.insertOne({_id: 0})
+db.c.insertMany([{_id: 'm1'}, {_id: 0}])
+throw new Error('thrown in repl')
+null.x
+db.runCommand({nope: 1})
+undefined
+null
+'str'
+[1,2,
+3]
+db.c.aggregate([{$sort: {_id: 1}}, {$limit: 25}])
+it
+it
+db.c.find().sort({_id: -1}).limit(2); 5
+it
+print('printed')
+db.dropDatabase()

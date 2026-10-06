@@ -1,0 +1,13 @@
+[
+  DBRef('coll', ObjectId('<oid>'), 'mydb'),
+  'coll',
+  'coll',
+  ObjectId('<oid>'),
+  'mydb',
+  '{"$ref":"coll","$id":"507f1f77bcf86cd799439011","$db":"mydb"}',
+  {},
+  DBRef('b', 1, 'a'),
+  DBRef('c', 1, { x: 1 }),
+  DBRef('c', 1, 'd', { x: 1 })
+]
+[exit 0]

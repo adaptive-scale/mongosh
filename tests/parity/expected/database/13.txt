@@ -1,0 +1,9 @@
+{
+  _id: 'parity_database_13.u1',
+  userId: UUID('<uuid>'),
+  user: 'u1',
+  db: 'parity_database_13',
+  roles: [ { role: 'read', db: 'parity_database_13' } ],
+  mechanisms: [ 'SCRAM-SHA-1', 'SCRAM-SHA-256' ]
+}
+[exit 0]

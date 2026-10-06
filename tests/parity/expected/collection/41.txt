@@ -1,0 +1,10 @@
+[
+  'MongoBulkWriteError',
+  'E11000 duplicate key error collection: parity_collection_41.c index: _id_ dup key: { _id: 1 }',
+  1,
+  1,
+  1,
+  { '0': 5 },
+  2
+]
+[exit 0]

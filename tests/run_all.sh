@@ -1,6 +1,11 @@
 #!/bin/bash
-# Main test runner for go-mongosh shell tests
+# Main test runner for the mongo-sh end-to-end shell tests
 # Usage: ./tests/run_all.sh
+#
+# Environment:
+#   MONGOSH   shell to test (default: target/release/mongo-sh, built first)
+#   MONGO_URI / MONGO_USER / MONGO_PASS   server to test against; read from
+#             tests/.env when not set
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -14,37 +19,40 @@ NC='\033[0m'
 
 echo ""
 echo -e "${CYAN}╔═══════════════════════════════════════════════════╗${NC}"
-echo -e "${CYAN}║        go-mongosh  Shell Test Suite               ║${NC}"
+echo -e "${CYAN}║        mongo-sh  Shell Test Suite                 ║${NC}"
 echo -e "${CYAN}╚═══════════════════════════════════════════════════╝${NC}"
 
-# Build binary first
-echo ""
-echo -e "${YELLOW}Building mongosh binary...${NC}"
-cd "${PROJECT_DIR}"
-go build -o mongosh ./cmd/mongosh
-echo -e "${GREEN}Build successful.${NC}"
+# Build the binary first, unless another shell was selected.
+if [ -z "${MONGOSH:-}" ]; then
+    echo ""
+    echo -e "${YELLOW}Building mongo-sh...${NC}"
+    (cd "${PROJECT_DIR}" && cargo build --release --quiet)
+    echo -e "${GREEN}Build successful.${NC}"
+    export MONGOSH="${PROJECT_DIR}/target/release/mongo-sh"
+fi
 
-# Verify binary exists
-if [ ! -x "${PROJECT_DIR}/mongosh" ]; then
-    echo -e "${RED}ERROR: mongosh binary not found after build${NC}"
+if ! command -v "${MONGOSH}" > /dev/null 2>&1; then
+    echo -e "${RED}ERROR: shell not found: ${MONGOSH}${NC}"
     exit 1
 fi
 
-# Load credentials from .env
-if [ -f "${SCRIPT_DIR}/.env" ]; then
-    source "${SCRIPT_DIR}/.env"
-else
-    echo -e "${RED}ERROR: tests/.env not found. Copy tests/.env.example to tests/.env and fill in credentials.${NC}"
-    exit 1
+# Load credentials from .env unless they are already in the environment
+if [ -z "${MONGO_URI:-}" ]; then
+    if [ -f "${SCRIPT_DIR}/.env" ]; then
+        source "${SCRIPT_DIR}/.env"
+    else
+        echo -e "${RED}ERROR: tests/.env not found. Copy tests/.env.example to tests/.env and fill in credentials.${NC}"
+        exit 1
+    fi
 fi
+export MONGO_URI MONGO_USER MONGO_PASS
 
 # Test connectivity before running suite
 echo ""
 echo -e "${YELLOW}Checking MongoDB connectivity...${NC}"
-output=$("${PROJECT_DIR}/mongosh" \
-    -uri "${MONGO_URI}" \
-    -u "${MONGO_USER}" -p "${MONGO_PASS}" \
-    -quiet -eval "db.runCommand({ping: 1})" 2>&1) || true
+output=$("${MONGOSH}" "${MONGO_URI}" \
+    -u "${MONGO_USER}" -p "${MONGO_PASS}" --authenticationDatabase "${MONGO_AUTH_DB:-admin}" \
+    --quiet --eval "db.runCommand({ping: 1})" 2>&1) || true
 
 if echo "$output" | grep -q "ok"; then
     echo -e "${GREEN}MongoDB connection verified.${NC}"

@@ -1,20 +1,10 @@
-# Binaries
+# Build output
+/target/
+/dist/
+
+# Windows binaries
 *.exe
 *.exe~
-*.dll
-*.so
-*.dylib
-mongosh
-
-# Test binary
-*.test
-
-# Output of go coverage
-*.out
-
-# Go workspace file
-go.work
-go.work.sum
 
 # IDE
 .idea/

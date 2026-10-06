@@ -1,0 +1,14 @@
+[
+  'secondaryPreferred',
+  [ { dc: 'a' } ],
+  'primary',
+  'majority',
+  WriteConcern {
+    w: 'majority',
+    wtimeout: 1000,
+    wtimeoutMS: 1000,
+    j: true,
+    journal: true
+  }
+]
+[exit 0]

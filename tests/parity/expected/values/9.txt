@@ -1,0 +1,13 @@
+[
+  Binary.createFromBase64('aGVsbG8=', 0),
+  Binary.createFromBase64('aGVsbG8=', 0),
+  MD5('0123456789abcdef0123456789abcdef'),
+  BSONRegExp('a.*', 'i'),
+  /a.*/gi,
+  BSONSymbol('sym'),
+  Code('function(){ return 1 }'),
+  Code('x', { a: 1 }),
+  DBRef('coll', ObjectId('<oid>')),
+  DBRef('coll', 5, 'otherdb')
+]
+[exit 0]

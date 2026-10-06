@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10001] Argument at position 0 must be of type number or object, got string instead (Timestamp)
+[exit 1]

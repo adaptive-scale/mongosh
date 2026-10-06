@@ -1,0 +1,6 @@
+[
+  1,
+  [ 'host', 'latencyStats', 'localTime', 'ns' ],
+  'parity_collection_64.c'
+]
+[exit 0]

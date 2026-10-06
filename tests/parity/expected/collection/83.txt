@@ -1,0 +1,3 @@
+[stderr]
+TypeError: db.c.abcdefghi ... stuvwx.nope is not a function
+[exit 1]

@@ -1,0 +1,7 @@
+[
+  'Cannot set option "displayBatchSize": displayBatchSize must be a positive integer',
+  'Cannot set option "inspectDepth": inspectDepth must be a positive integer',
+  'Cannot set option "inspectCompact": inspectCompact must be a boolean or a positive integer',
+  `Cannot set option "redactHistory": redactHistory must be one of 'keep', 'remove', or 'remove-redact'`
+]
+[exit 0]

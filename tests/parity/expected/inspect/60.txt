@@ -1,0 +1,15 @@
+{
+  a: 1,
+  b: 'two',
+  c: [ 3 ],
+  d: { e: 4 },
+  f: null,
+  g: undefined,
+  h: true,
+  i: 1.5,
+  j: Long('6'),
+  k: ISODate('1970-01-01T00:00:00.000Z'),
+  l: /re/,
+  m: ObjectId('<oid>')
+}
+[exit 0]

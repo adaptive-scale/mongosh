@@ -1,0 +1,7 @@
+{
+  "acknowledged": true,
+  "insertedId": {
+    "$numberInt": "1"
+  }
+}
+[exit 0]

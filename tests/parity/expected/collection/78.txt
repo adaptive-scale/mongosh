@@ -1,0 +1,3 @@
+[stderr]
+TypeError: x.K is not a constructor
+[exit 1]

@@ -1,0 +1,8 @@
+[
+  [Number: 5],
+  [String: 'str'],
+  [Boolean: false],
+  [BigInt: 1n],
+  [Symbol: Symbol(s)]
+]
+[exit 0]

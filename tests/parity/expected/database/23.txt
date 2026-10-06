@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10001] Missing required property: "privileges"
+[exit 1]

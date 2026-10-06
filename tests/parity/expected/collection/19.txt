@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10001] returnDocument needs to be either 'before' or 'after'
+[exit 1]

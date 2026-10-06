@@ -1,0 +1,4 @@
+DeprecationWarning: DBQuery.shellBatchSize is deprecated, please use config.set("displayBatchSize") instead
+[ { _id: 0 }, { _id: 1 }, { _id: 2 } ]
+Type "it" for more
+[exit 0]

@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10001] If a full URI is provided, you cannot also specify --host or --port
+[exit 1]

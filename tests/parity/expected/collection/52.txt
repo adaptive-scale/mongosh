@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10001] Argument at position 0 must be of type string, got number instead (Collection.renameCollection)
+[exit 1]

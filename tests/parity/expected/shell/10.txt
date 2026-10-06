@@ -1,0 +1,3 @@
+[stderr]
+Error: { code: 5, msg: 'obj' }
+[exit 1]

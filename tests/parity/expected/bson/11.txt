@@ -1,0 +1,19 @@
+[
+  MinKey(),
+  MaxKey(),
+  MinKey(),
+  '{"a":{},"b":{}}',
+  true,
+  'abc',
+  'abc',
+  '"abc"',
+  BSONRegExp('ab+', 'imx'),
+  '',
+  '{"pattern":"ab+","options":"i"}',
+  Code('x'),
+  Code('function f() { return 1 }'),
+  { a: 1 },
+  '{"code":"x"}',
+  '{"code":"x","scope":{"a":1}}'
+]
+[exit 0]

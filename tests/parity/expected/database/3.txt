@@ -1,0 +1,8 @@
+a
+b
+ts                 [time-series]
+vw                 [view]
+Zed
+system.buckets.ts
+system.views
+[exit 0]

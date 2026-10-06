@@ -1,0 +1,11 @@
+[
+  'db',           'collections',
+  'views',        'objects',
+  'avgObjSize',   'dataSize',
+  'storageSize',  'indexes',
+  'indexSize',    'totalSize',
+  'scaleFactor',  'fsUsedSize',
+  'fsTotalSize',  'ok',
+  '$clusterTime', 'operationTime'
+]
+[exit 0]

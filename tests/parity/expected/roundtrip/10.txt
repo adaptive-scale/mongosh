@@ -1,0 +1,7 @@
+{
+  _id: 1,
+  ref: DBRef('coll', 5),
+  notref: { '$ref': 'coll', '$id': 5, '$other': 1 },
+  ref3: DBRef('c', 1, 'd', { extra: 2 })
+}
+[exit 0]

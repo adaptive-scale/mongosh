@@ -1,0 +1,6 @@
+[stderr]
+SyntaxError: Expecting Unicode escape sequence \uXXXX. (1:6)
+
+> 1 | multi\nline\n' + 'string
+    |       ^
+[exit 1]

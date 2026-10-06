@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10001] Argument at position 2 must be of type string, got object instead (DBRef)
+[exit 1]

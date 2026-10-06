@@ -1,0 +1,3 @@
+[stderr]
+Error: ENOENT: no such file or directory, open '<fixtures>/does-not-exist.js'
+[exit 1]

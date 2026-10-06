@@ -1,0 +1,4 @@
+ReplicaSet class connected to mongodb://<credentials>@127.0.0.1:<port>/?directConnection=true&serverSelectionTimeoutMS=2000&authSource=admin&appName=<shell> via db test
+Shard class connected to mongodb://<credentials>@127.0.0.1:<port>/?directConnection=true&serverSelectionTimeoutMS=2000&authSource=admin&appName=<shell> via db test
+mongodb://<credentials>@127.0.0.1:<port>/?directConnection=true&serverSelectionTimeoutMS=2000&authSource=admin&appName=<shell>
+[exit 0]

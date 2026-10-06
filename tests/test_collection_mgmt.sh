@@ -80,7 +80,7 @@ assert_contains "$output" "5" "estimatedDocumentCount returns 5"
 # ──────────────────────────────────────────────
 print_group "createIndexes (batch)"
 # ──────────────────────────────────────────────
-output=$(run_eval "${DB}.idx_batch_test.insertOne({a:1, b:2, c:3})" > /dev/null; run_eval "${DB}.idx_batch_test.createIndexes([{key: {a: 1}}, {key: {b: 1}, unique: true}])")
+output=$(run_eval "${DB}.idx_batch_test.insertOne({a:1, b:2, c:3})" > /dev/null; run_eval "${DB}.idx_batch_test.createIndexes([{a: 1}, {b: 1}], {unique: true})")
 assert_contains "$output" "a_1" "batch createIndexes returns first index name"
 assert_contains "$output" "b_1" "batch createIndexes returns second index name"
 
@@ -97,9 +97,12 @@ print_group "getName and toString"
 output=$(run_eval "${DB}.stats_test.getName()")
 assert_contains "$output" "stats_test" "getName returns collection name"
 
-output=$(run_eval "${DB}.stats_test.toString()")
-assert_contains "$output" "${TEST_DB}" "toString contains database name"
-assert_contains "$output" "stats_test" "toString contains collection name"
+output=$(run_eval "${DB}.stats_test.getFullName()")
+assert_equals "$output" "${TEST_DB}.stats_test" "getFullName returns database.collection"
+
+# Evaluating a collection prints its namespace.
+output=$(run_eval "${DB}.stats_test")
+assert_equals "$output" "${TEST_DB}.stats_test" "a collection prints as its namespace"
 
 teardown_test_db
 

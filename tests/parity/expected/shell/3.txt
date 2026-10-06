@@ -1,0 +1,7 @@
+a %s b %d c %j S 42 { x: 1 } extra { y: 2 }
+
+{ a: 1 } [ 1, 2 ]
+E
+I
+D
+[exit 0]

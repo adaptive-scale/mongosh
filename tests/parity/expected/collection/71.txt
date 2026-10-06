@@ -1,0 +1,3 @@
+[stderr]
+TypeError: Cannot read properties of undefined (reading 'b')
+[exit 1]

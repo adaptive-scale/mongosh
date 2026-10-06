@@ -1,0 +1,14 @@
+{
+  "_id": {
+    "$numberInt": "1"
+  },
+  "l": {
+    "$numberLong": "5"
+  },
+  "d": {
+    "$date": {
+      "$numberLong": "0"
+    }
+  }
+}
+[exit 0]

@@ -1,0 +1,3 @@
+[stderr]
+MongoExpiredSessionError: Use of expired sessions is not permitted
+[exit 1]

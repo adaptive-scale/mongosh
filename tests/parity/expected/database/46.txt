@@ -1,0 +1,2 @@
+{ id: UUID('<uuid>') }
+[exit 0]

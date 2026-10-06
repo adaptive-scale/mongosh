@@ -1,0 +1,16 @@
+[
+  'c',
+  null,
+  false,
+  true,
+  true,
+  null,
+  { ok: 1 },
+  true,
+  { capped: true, size: 1000, max: 5 },
+  false,
+  true,
+  1,
+  true
+]
+[exit 0]

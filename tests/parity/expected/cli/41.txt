@@ -1,0 +1,2 @@
+somedb
+[exit 0]

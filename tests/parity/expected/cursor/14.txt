@@ -1,0 +1,3 @@
+[stderr]
+MongoInvalidArgumentError: Argument for maxTimeMS must be a number
+[exit 1]

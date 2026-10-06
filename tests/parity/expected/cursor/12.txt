@@ -1,0 +1,3 @@
+[stderr]
+MongoInvalidArgumentError: Operation "skip" requires an integer
+[exit 1]

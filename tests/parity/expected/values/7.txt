@@ -1,0 +1,11 @@
+Warning: NumberLong: specifying a number as argument is deprecated and may lead to loss of precision, pass a string instead
+[
+  Long('5'),
+  Int32(5),
+  Decimal128('1.50'),
+  Double(5),
+  Int32(7),
+  Long('9007199254740993'),
+  Decimal128('0.1')
+]
+[exit 0]

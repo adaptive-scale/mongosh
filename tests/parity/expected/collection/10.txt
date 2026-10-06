@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: The path 'arr' must exist in the document in order to apply array updates.
+[exit 1]

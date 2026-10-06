@@ -1,0 +1,3 @@
+[stderr]
+BSONError: Timestamp constructed from { t, i } must provide a positive t
+[exit 1]

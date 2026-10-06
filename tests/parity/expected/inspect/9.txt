@@ -1,0 +1,11 @@
+[
+  { a: 0, b: 'some longer string value 0', c: [ 0, 0 ] },
+  { a: 1, b: 'some longer string value 1', c: [ 1, 1 ] },
+  { a: 2, b: 'some longer string value 2', c: [ 2, 2 ] },
+  { a: 3, b: 'some longer string value 3', c: [ 3, 3 ] },
+  { a: 4, b: 'some longer string value 4', c: [ 4, 4 ] },
+  { a: 5, b: 'some longer string value 5', c: [ 5, 5 ] },
+  { a: 6, b: 'some longer string value 6', c: [ 6, 6 ] },
+  { a: 7, b: 'some longer string value 7', c: [ 7, 7 ] }
+]
+[exit 0]

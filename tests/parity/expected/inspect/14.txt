@@ -1,0 +1,7 @@
+[
+  true, false,
+  null, undefined,
+  true, false,
+  null, undefined
+]
+[exit 0]

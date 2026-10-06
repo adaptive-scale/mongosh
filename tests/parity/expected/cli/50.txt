@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: Provided apiStrict:true, but the command replSetGetStatus is not in API Version 1. Information on supported commands and migrations in API Version 1 can be found at https://dochub.mongodb.org/core/manual-versioned-api.
+[exit 1]

@@ -1,0 +1,3 @@
+[stderr]
+BSONError: Decimal128 must take a Buffer or string
+[exit 1]

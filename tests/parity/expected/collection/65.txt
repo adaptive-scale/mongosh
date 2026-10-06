@@ -1,0 +1,11 @@
+[
+  null,
+  [
+    [ 'insert', { _id: 2 }, { db: 'parity_collection_65', coll: 'c' } ],
+    [ 'update', { _id: 2 }, { db: 'parity_collection_65', coll: 'c' } ],
+    [ 'delete', { _id: 1 }, { db: 'parity_collection_65', coll: 'c' } ]
+  ],
+  'object',
+  true
+]
+[exit 0]

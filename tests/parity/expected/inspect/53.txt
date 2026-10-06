@@ -1,0 +1,2 @@
+{ getter: [Getter], setter: [Setter], both: [Getter/Setter] }
+[exit 0]

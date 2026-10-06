@@ -1,0 +1,11 @@
+[
+  'MongoServerError',
+  "no such command: 'nope'",
+  59,
+  'CommandNotFound',
+  0,
+  "no such command: 'nope'",
+  [ 'code', 'codeName', 'errorLabelSet', 'errorResponse', 'ok' ],
+  []
+]
+[exit 0]

@@ -1,0 +1,2 @@
+[ Symbol(), Symbol(desc), Symbol(global), Symbol(Symbol.iterator) ]
+[exit 0]

@@ -1,0 +1,2 @@
+[ /regex/, /with flags/gimsuy, /a\/b/, /\d+\.\d*/ ]
+[exit 0]

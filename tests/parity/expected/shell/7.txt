@@ -1,0 +1,3 @@
+[stderr]
+MongoInvalidArgumentError: Update document requires atomic operators
+[exit 1]

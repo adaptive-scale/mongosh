@@ -70,7 +70,7 @@ assert_contains "$output" "2" "countDocuments with filter returns 2"
 # ──────────────────────────────────────────────
 print_group "updateOne"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.updateOne({name: 'Alice'}, {\\\$set: {age: 31}})")
+output=$(run_eval "${COLL}.updateOne({name: 'Alice'}, {\$set: {age: 31}})")
 assert_contains "$output" "acknowledged" "updateOne returns acknowledged"
 assert_contains "$output" "matchedCount" "updateOne returns matchedCount"
 
@@ -81,7 +81,7 @@ assert_contains "$output" "31" "updateOne correctly updated age to 31"
 # ──────────────────────────────────────────────
 print_group "updateMany"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.updateMany({city: 'LA'}, {\\\$set: {state: 'California'}})")
+output=$(run_eval "${COLL}.updateMany({city: 'LA'}, {\$set: {state: 'California'}})")
 assert_contains "$output" "acknowledged" "updateMany returns acknowledged"
 assert_contains "$output" "modifiedCount" "updateMany returns modifiedCount"
 
@@ -100,7 +100,7 @@ assert_contains "$output" "SF" "replaceOne correctly replaced document"
 # ──────────────────────────────────────────────
 print_group "findOneAndUpdate"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.findOneAndUpdate({name: 'Bob'}, {\\\$set: {age: 26}})")
+output=$(run_eval "${COLL}.findOneAndUpdate({name: 'Bob'}, {\$set: {age: 26}})")
 assert_contains "$output" "Bob" "findOneAndUpdate returns the document"
 
 output=$(run_eval "${COLL}.findOne({name: 'Bob'}).age")
@@ -143,7 +143,7 @@ assert_contains "$output" "blue" "distinct returns blue"
 # ──────────────────────────────────────────────
 print_group "Upsert"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.updateOne({name: 'Zara'}, {\\\$set: {name: 'Zara', age: 40}}, {upsert: true})")
+output=$(run_eval "${COLL}.updateOne({name: 'Zara'}, {\$set: {name: 'Zara', age: 40}}, {upsert: true})")
 assert_contains "$output" "acknowledged" "upsert returns acknowledged"
 
 output=$(run_eval "${COLL}.findOne({name: 'Zara'}).age")

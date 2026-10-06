@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: target namespace exists
+[exit 1]

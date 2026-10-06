@@ -102,7 +102,7 @@ assert_contains "$output" "closed_ok" "close: cursor closed without error"
 # ──────────────────────────────────────────────
 print_group "count with filter in find"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.find({val: {\\\$gt: 100}}).count()")
+output=$(run_eval "${COLL}.find({val: {\$gt: 100}}).count()")
 exit_code=$?
 assert_exit_success "$exit_code" "count with filter: executes successfully"
 

@@ -1,0 +1,4 @@
+db.system.profile is empty.
+Use db.setProfilingLevel(2) will enable profiling.
+Use db.getCollection('system.profile').find() to show raw profile entries.
+[exit 0]

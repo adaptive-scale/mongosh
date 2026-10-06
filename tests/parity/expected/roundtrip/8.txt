@@ -1,0 +1,5 @@
+{
+  _id: 1,
+  s: `multi\nline\tand "quotes" and 'single' and \\ backslash and unicode é 中文 😀`
+}
+[exit 0]

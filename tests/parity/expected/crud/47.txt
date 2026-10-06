@@ -1,0 +1,11 @@
+[
+  'ok',             'capped',
+  'wiredTiger',     'sharded',
+  'size',           'count',
+  'numOrphanDocs',  'storageSize',
+  'totalIndexSize', 'totalSize',
+  'indexSizes',     'avgObjSize',
+  'ns',             'nindexes',
+  'scaleFactor'
+]
+[exit 0]

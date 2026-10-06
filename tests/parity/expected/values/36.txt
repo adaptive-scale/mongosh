@@ -1,0 +1,9 @@
+{
+  '3': 4,
+  'key with space': 1,
+  valid_id: 2,
+  'a-b': 5,
+  '$dollar': 6,
+  'ünï': 7
+}
+[exit 0]

@@ -1,0 +1,3 @@
+[stderr]
+MongoInvalidArgumentError: Replacement document must not contain atomic operators
+[exit 1]

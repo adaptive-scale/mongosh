@@ -1,0 +1,20 @@
+DeprecationWarning: Collection.mapReduce() is deprecated. Use an aggregation instead.
+See https://mongodb.com/docs/manual/core/map-reduce for details.
+[
+  [ { _id: 'a', value: 3 }, { _id: 'b', value: 3 } ],
+  1,
+  {
+    result: 'mr_out',
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  [ { _id: 'a', value: 3 }, { _id: 'b', value: 3 } ]
+]
+[exit 0]

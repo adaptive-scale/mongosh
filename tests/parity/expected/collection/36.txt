@@ -1,0 +1,15 @@
+[
+  'MongoBulkWriteError',
+  'E11000 duplicate key error collection: parity_collection_36.c index: _id_ dup key: { _id: 1 }',
+  11000,
+  1,
+  11000,
+  1,
+  'E11000 duplicate key error collection: parity_collection_36.c index: _id_ dup key: { _id: 1 }',
+  1,
+  { '0': 1 },
+  1,
+  [ 'errorLabelSet', 'errorResponse', 'code', 'writeErrors', 'result' ],
+  1
+]
+[exit 0]

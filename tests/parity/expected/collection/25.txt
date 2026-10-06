@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: BSON field 'distinctCommandRequest.key' is missing but a required field
+[exit 1]

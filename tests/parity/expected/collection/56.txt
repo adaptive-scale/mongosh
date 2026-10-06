@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: PlanExecutor error during aggregation :: caused by :: Unable to retrieve storageStats in $collStats stage :: caused by :: Collection [parity_collection_56.nope] not found.
+[exit 1]

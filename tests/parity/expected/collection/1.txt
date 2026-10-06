@@ -1,0 +1,15 @@
+[
+  'c',
+  'parity_collection_1.c',
+  'parity_collection_1',
+  true,
+  'parity_collection_1.a.b',
+  'a.b',
+  'parity_collection_1.a.b.c',
+  'object',
+  '[object Object]',
+  '[object Object]',
+  'with space',
+  'dash-name'
+]
+[exit 0]

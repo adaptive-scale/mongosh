@@ -1,0 +1,123 @@
+[
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  {
+    _id: 'parity_database_22.r1',
+    role: 'r1',
+    db: 'parity_database_22',
+    roles: [],
+    inheritedRoles: [],
+    isBuiltin: false
+  },
+  [
+    {
+      resource: { db: 'parity_database_22', collection: 'c' },
+      actions: [ 'find' ]
+    }
+  ],
+  null,
+  [ 'r1', 'r2' ],
+  true,
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  [ { role: 'read', db: 'parity_database_22' } ],
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  [ 'readWrite' ],
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  {
+    n: 1,
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  []
+]
+[exit 0]

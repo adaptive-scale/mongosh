@@ -1,0 +1,100 @@
+[
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  [ { role: 'read', db: 'parity_database_12' } ],
+  { x: 1 },
+  null,
+  [ 'u1', 'u2' ],
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  [ { role: 'readWrite', db: 'parity_database_12' } ],
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  [ 'dbAdmin', 'readWrite' ],
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  [ 'readWrite' ],
+  {
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  {
+    n: 1,
+    ok: 1,
+    '$clusterTime': {
+      clusterTime: Timestamp(<ts>),
+      signature: {
+        hash: Binary.createFromBase64('<hash>', 0),
+        keyId: Long('<keyId>')
+      }
+    },
+    operationTime: Timestamp(<ts>)
+  },
+  []
+]
+[exit 0]

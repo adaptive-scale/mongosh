@@ -1,0 +1,3 @@
+[stderr]
+MongoshInvalidInputError: [COMMON-10002] Cannot call getOperations on an unexecuted Bulk operation
+[exit 1]

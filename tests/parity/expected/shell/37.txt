@@ -1,0 +1,2 @@
+{"a":{"$numberInt":"1"},"o":{"$oid":"507f1f77bcf86cd799439011"},"d":{"$date":{"$numberLong":"0"}},"l":{"$numberLong":"5"},"n":{"$numberInt":"3"},"dec":{"$numberDecimal":"1.5"},"b":{"$binary":{"base64":"aGVsbG8=","subType":"00"}},"t":{"$timestamp":{"t":1,"i":2}},"r":{"$regularExpression":{"pattern":"a","options":"i"}},"mk":{"$minKey":1},"f":{"$numberDouble":"1.5"},"big":{"$numberLong":"12345678901234"}}
+[exit 0]

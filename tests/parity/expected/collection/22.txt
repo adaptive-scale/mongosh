@@ -1,0 +1,3 @@
+[stderr]
+MongoInvalidArgumentError: bulkWrite only supports insertOne, updateOne, updateMany, deleteOne, deleteMany
+[exit 1]

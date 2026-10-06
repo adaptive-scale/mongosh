@@ -1,0 +1,8 @@
+[
+  true,      1,
+  'object',  'x',
+  'a.b.c',   'primary',
+  undefined, undefined,
+  'string'
+]
+[exit 0]

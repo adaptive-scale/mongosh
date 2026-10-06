@@ -1,0 +1,5 @@
+[
+  <ref *1> { name: 'o', p: { name: 'p', o: [Circular *1] } },
+  <ref *2> { name: 'p', o: <ref *1> { name: 'o', p: [Circular *2] } }
+]
+[exit 0]

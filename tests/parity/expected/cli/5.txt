@@ -1,0 +1,6 @@
+{
+  "message": "boom",
+  "stack": "@(shell eval):242\n  if (_fs === \"returned\") return _srv;else if (_fs === \"threw\") throw _srv;\n                                                                ^\n\nError: boom\n    at @(shell eval):227:56\n    at @(shell eval):241:5\n    at @(shell eval):245:3\n    at sigintHandlersWrap (node:vm:280:12)\n    at Script.runInContext (node:vm:147:14)\n    at eval (eval at <anonymous> (node:lib-boxednode/mongosh:103:20), <anonymous>:140:958169)\n    at ShellEvaluator.innerEval (eval at <anonymous> (node:lib-boxednode/mongosh:103:20), <anonymous>:140:876961)\n    at ShellEvaluator.customEval (eval at <anonymous> (node:lib-boxednode/mongosh:103:20), <anonymous>:140:877154)\n    at MongoshNodeRepl.eval (eval at <anonymous> (node:lib-boxednode/mongosh:103:20), <anonymous>:140:956673)\n    at MongoshNodeRepl.loadExternalCode (eval at <anonymous> (node:lib-boxednode/mongosh:103:20), <anonymous>:140:958125)",
+  "name": "Error"
+}
+[exit 1]

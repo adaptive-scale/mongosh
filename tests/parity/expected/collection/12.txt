@@ -1,0 +1,13 @@
+[
+  { _id: 2, a: 1, v: 0 },
+  { v: 2 },
+  null,
+  { _id: 10, v: 1 },
+  { _id: 1, a: 1, v: 0 },
+  { _id: 1, rep: 2 },
+  { _id: 2, a: 1, v: 2 },
+  null,
+  { _id: 10 },
+  undefined
+]
+[exit 0]

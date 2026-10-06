@@ -1,0 +1,21 @@
+[
+  'MongoServerError',
+  'E11000 duplicate key error collection: parity_collection_38.c index: _id_ dup key: { _id: 1 }',
+  11000,
+  undefined,
+  0,
+  { _id: 1 },
+  { _id: 1 },
+  'E11000 duplicate key error collection: parity_collection_38.c index: _id_ dup key: { _id: 1 }',
+  [
+    'code',
+    'errorLabelSet',
+    'errorResponse',
+    'index',
+    'keyPattern',
+    'keyValue'
+  ],
+  [],
+  'function'
+]
+[exit 0]

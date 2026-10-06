@@ -1,0 +1,15 @@
+[
+  [ 'a', 'cap', 'system.buckets.ts', 'system.views', 'ts', 'v' ],
+  [
+    [ 'a', 'collection' ],
+    [ 'cap', 'collection' ],
+    [ 'system.buckets.ts', 'collection' ],
+    [ 'system.views', 'collection' ],
+    [ 'ts', 'timeseries' ],
+    [ 'v', 'view' ]
+  ],
+  { capped: true, size: 1024 },
+  [ 'v' ],
+  6
+]
+[exit 0]

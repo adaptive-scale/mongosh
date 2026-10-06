@@ -1,0 +1,7 @@
+[
+  MD5('0123456789abcdef0123456789abcdef'),
+  Binary.createFromBase64('782riWdFIwHvzauJZ0UjAQ==', 3),
+  Binary.createFromBase64('Z0UjAauJ780BI0VniavN7w==', 3),
+  Binary.createFromBase64('ASNFZ4mrze8BI0VniavN7w==', 3)
+]
+[exit 0]

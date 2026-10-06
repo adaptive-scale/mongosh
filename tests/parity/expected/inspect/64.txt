@@ -1,0 +1,6 @@
+[stderr]
+SyntaxError: Missing semicolon. (1:1)
+
+> 1 | a string ' + 'result
+    |  ^
+[exit 1]

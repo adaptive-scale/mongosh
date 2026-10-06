@@ -1,0 +1,2 @@
+[ 'Error:e1', 'TypeError:e2', 'RangeError:e3' ]
+[exit 0]

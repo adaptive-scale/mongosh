@@ -1,0 +1,33 @@
+# Build image for release binaries.
+#
+# One image cross-compiles mongo-sh for every supported OS and architecture:
+# cargo-zigbuild uses zig as the C compiler and linker for each target, and
+# the base image bundles the macOS SDK needed for the Apple targets.
+#
+#   docker build -f Dockerfile.build -t mongo-sh-build .
+#   docker run --rm -v "$PWD":/src mongo-sh-build            # all targets
+#   docker run --rm -v "$PWD":/src mongo-sh-build linux/amd64 darwin/arm64
+#
+# `make release` wraps both steps. Archives are written to dist/.
+FROM ghcr.io/rust-cross/cargo-zigbuild:latest
+
+RUN rustup target add \
+        x86_64-unknown-linux-musl \
+        aarch64-unknown-linux-musl \
+        x86_64-apple-darwin \
+        aarch64-apple-darwin \
+        x86_64-pc-windows-gnu \
+        aarch64-pc-windows-gnullvm
+
+# zip packages the Windows archives; libclang generates the QuickJS bindings
+# for the one target that ships without pre-generated ones (windows/arm64).
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends zip libclang-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Keep build output out of the mounted source tree's host target directory:
+# artifacts built for other platforms would only confuse a local `cargo build`.
+ENV CARGO_TARGET_DIR=/build/target
+
+WORKDIR /src
+ENTRYPOINT ["bash", "/src/scripts/build-release.sh"]

@@ -1,0 +1,3 @@
+[stderr]
+TypeError: o.missing is not a function
+[exit 1]

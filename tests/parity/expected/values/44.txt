@@ -1,0 +1,2 @@
+[Object: null prototype] {}
+[exit 0]

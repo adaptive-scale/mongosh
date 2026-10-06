@@ -1,0 +1,11 @@
+[
+  {
+    _id: 'parity_database_21.su',
+    userId: UUID('<uuid>'),
+    user: 'su',
+    db: 'parity_database_21',
+    roles: [],
+    mechanisms: [ 'SCRAM-SHA-1', 'SCRAM-SHA-256' ]
+  }
+]
+[exit 0]

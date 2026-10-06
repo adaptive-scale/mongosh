@@ -1,0 +1,3 @@
+[stderr]
+BSONError: abc not a valid Decimal128 string
+[exit 1]

@@ -1,0 +1,2 @@
+[ 'ExplainableCursor', 'function', true ]
+[exit 0]

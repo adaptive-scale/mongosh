@@ -70,11 +70,11 @@ assert_contains "$output" "Timestamp" "Timestamp constructor works"
 # ──────────────────────────────────────────────
 print_group "MinKey / MaxKey"
 # ──────────────────────────────────────────────
-output=$(run_eval "MinKey")
-assert_contains "$output" "MinKey" "MinKey value exists"
+output=$(run_eval "MinKey()")
+assert_equals "$output" "MinKey()" "MinKey() creates a MinKey"
 
-output=$(run_eval "MaxKey")
-assert_contains "$output" "MaxKey" "MaxKey value exists"
+output=$(run_eval "MaxKey()")
+assert_equals "$output" "MaxKey()" "MaxKey() creates a MaxKey"
 
 # ──────────────────────────────────────────────
 print_group "Mixed types in document"
@@ -95,9 +95,9 @@ assert_contains "$output" "2024-06-15" "mixed doc has ISODate"
 # ──────────────────────────────────────────────
 print_group "JSON conversion"
 # ──────────────────────────────────────────────
-output=$(run_eval "tojson({a: 1, b: 'hello'})")
-assert_contains "$output" "a" "tojson outputs key a"
-assert_contains "$output" "hello" "tojson outputs value hello"
+output=$(run_eval "EJSON.stringify({a: 1, b: 'hello'})")
+assert_contains "$output" '"a":1' "EJSON.stringify outputs key a"
+assert_contains "$output" '"b":"hello"' "EJSON.stringify outputs value hello"
 
 teardown_test_db
 

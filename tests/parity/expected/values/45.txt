@@ -1,0 +1,2 @@
+<ref *1> { a: 1, self: [Circular *1] }
+[exit 0]

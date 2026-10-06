@@ -101,10 +101,18 @@ output=$(run_eval "${DB}.dropRole('test_role_gomongosh')")
 assert_contains "$output" "ok" "dropRole returns ok"
 
 # ──────────────────────────────────────────────
-print_group "db.auth() not supported"
+print_group "db.auth()"
 # ──────────────────────────────────────────────
 output=$(run_eval "${DB}.auth()" 2>&1 || true)
-assert_contains "$output" "not supported" "db.auth() shows not supported message"
+assert_contains "$output" "auth expects (username)" "db.auth() without arguments explains its usage"
+
+run_eval "${DB}.createUser({user: 'auth_test_user', pwd: 'auth_test_pw', roles: ['readWrite']})" > /dev/null
+output=$(run_eval "${DB}.auth('auth_test_user', 'auth_test_pw'); ${DB}.runCommand({connectionStatus: 1}).authInfo.authenticatedUsers")
+assert_contains "$output" "auth_test_user" "db.auth() switches the connection to the given user"
+
+output=$(run_eval "${DB}.auth('auth_test_user', 'wrong_password')" 2>&1 || true)
+assert_contains "$output" "Authentication failed" "db.auth() with a wrong password fails"
+run_eval "${DB}.dropUser('auth_test_user')" > /dev/null
 
 teardown_test_db
 

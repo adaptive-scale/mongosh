@@ -1,0 +1,13 @@
+[
+  UUID('<uuid>'),
+  '\x01#Eg����\x01#Eg����',
+  '"ASNFZ4mrze8BI0VniavN7w=="',
+  4,
+  true,
+  4,
+  '0123456789abcdef0123456789abcdef',
+  'ASNFZ4mrze8BI0VniavN7w==',
+  16,
+  true
+]
+[exit 0]

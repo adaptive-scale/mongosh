@@ -1,0 +1,17 @@
+# Snippets where mongo-sh intentionally or unavoidably differs from mongosh.
+# Format: <case>:<snippet number>  <reason>
+#
+# The parity run reports these separately instead of failing on them, and
+# flags an entry as stale once its snippet matches again.
+crud:5       printing an uncalled BSON constructor shows mongosh's internal wrapper function; mongo-sh shows the constructor itself
+crud:6       printing an uncalled BSON constructor shows mongosh's internal wrapper function; mongo-sh shows the constructor itself
+shell:19     syntax error wording and position come from the JavaScript parser (Babel in mongosh, QuickJS here)
+shell:30     mongosh rejects top-level await in --eval; mongo-sh accepts it
+values:18    mongosh's code rewriter names an anonymous function that ends a line "_cr"; mongo-sh reports it as anonymous
+inspect:64   mongosh strips the outer quotes of --eval even when they do not enclose the whole value, then fails to parse; mongo-sh evaluates the expression
+inspect:65   mongosh strips the outer quotes of --eval even when they do not enclose the whole value, then fails to parse; mongo-sh evaluates the expression
+cursor:32    mongosh rejects top-level `for await` in --eval; mongo-sh accepts it
+collection:42  Bulk.getOperations() after execute(): mongosh reports only the last batch, mongo-sh reports every batch that was sent
+cli:4        mongosh fails to serialise a cursor with --json ("Converting circular structure to EJSON"); mongo-sh prints the documents
+cli:5        the "stack" of an error reported with --json is the engine's own stack trace
+cli:33       the usage text printed after a bad option lists mongo-sh's own options

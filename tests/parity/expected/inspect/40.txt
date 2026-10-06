@@ -1,0 +1,13 @@
+[
+  [Function (anonymous)],
+  [Function: named],
+  [Function (anonymous)],
+  [AsyncFunction (anonymous)],
+  [GeneratorFunction: gen],
+  [AsyncFunction: af],
+  [Function: max],
+  [class Foo],
+  [Function: Symbol],
+  [Function: withProps] { a: 1 }
+]
+[exit 0]

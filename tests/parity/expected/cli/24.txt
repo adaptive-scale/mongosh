@@ -1,0 +1,3 @@
+[stderr]
+Error: ENOENT: no such file or directory, open '/nonexistent/dir/file.js'
+[exit 1]

@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: User 'nope@parity_database_15' not found
+[exit 1]

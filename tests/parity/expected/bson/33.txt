@@ -1,0 +1,3 @@
+[stderr]
+BSONError: Argument passed in does not match the accepted types
+[exit 1]

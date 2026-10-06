@@ -1,0 +1,9 @@
+[
+  DeleteResult { acknowledged: true, deletedCount: 1 },
+  DeleteResult { acknowledged: true, deletedCount: 0 },
+  DeleteResult { acknowledged: true, deletedCount: 2 },
+  DeleteResult { acknowledged: true, deletedCount: 1 },
+  DeleteResult { acknowledged: true, deletedCount: 0 },
+  0
+]
+[exit 0]

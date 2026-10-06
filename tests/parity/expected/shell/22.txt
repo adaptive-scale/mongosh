@@ -1,0 +1,2 @@
+[ 'global', 'startupWarnings' ]
+[exit 0]

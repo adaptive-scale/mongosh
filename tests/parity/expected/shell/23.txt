@@ -1,0 +1,2 @@
+no cursor
+[exit 0]

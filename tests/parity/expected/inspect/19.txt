@@ -1,0 +1,6 @@
+[
+  'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+  'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy',
+  'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'
+]
+[exit 0]

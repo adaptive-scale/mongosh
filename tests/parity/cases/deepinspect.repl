@@ -1,0 +1,26 @@
+use __DB__
+db.dropDatabase()
+db.c.insertOne({_id: 'deep', d: {a: {b: {c: {d: {e: {f: {g: {h: {i: 1}}}}}}}}}, arr: Array.from({length: 105}, (_, i) => i), s: 'x'.repeat(10010)}).acknowledged
+var doc = db.c.findOne({}, {s: 0, arr: 0})
+Object.keys(doc)
+({wrapped: doc})
+print(doc)
+printjson(doc)
+doc.local = {l1: {l2: {l3: {l4: {l5: {l6: {l7: {l8: 1}}}}}}}}; doc
+JSON.stringify(doc.d)
+var copy = {...doc}; copy
+var arr = db.c.find({}, {s: 0, arr: 0}).toArray(); arr
+db.c.findOne({}, {arr: 1}).arr.length
+db.c.findOne({}, {arr: 1})
+db.c.findOne({}, {s: 1}).s.length
+var big = db.c.findOne({}, {s: 1}); big.s = big.s.slice(0, 5); big
+db.c.distinct('arr')
+db.runCommand({explain: {find: 'c', filter: {}}, verbosity: 'queryPlanner'}).queryPlanner.winningPlan
+db.c.aggregate([{$project: {d: 1}}]).toArray()
+db.c.insertMany(Array.from({length: 3}, (_, i) => ({_id: i, deep: {a: {b: {c: {d: {e: {f: {g: 'x'.repeat(30)}}}}}}}})))
+db.c.find({_id: {$in: [0, 1]}})
+db.c.find({_id: 0}).next()
+db.c.findOneAndUpdate({_id: 0}, {$set: {z: 1}})
+[db.c.findOne({_id: 1}), {local: {a: {b: {c: {d: {e: {f: {g: {h: 1}}}}}}}}}]
+db.c.find({_id: {$in: [0, 1]}}).map(d => ({mapped: d.deep}))
+db.dropDatabase()

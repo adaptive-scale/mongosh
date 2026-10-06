@@ -1,0 +1,14 @@
+{
+  s: "it's",
+  d: 'say "hi"',
+  b: `both ' and "`,
+  t: 'all \' " `',
+  n: 'new\nline',
+  tab: 'a\tb',
+  bs: 'back\\slash',
+  ctl: '\x00\x01\x1F\x7F',
+  uni: 'é中😀',
+  lone: '\ud800',
+  empty: ''
+}
+[exit 0]

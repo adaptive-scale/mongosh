@@ -1,0 +1,3 @@
+[stderr]
+MongoshUnimplementedError: [COMMON-90002] Causal consistency for drivers is set via Mongo.startSession and can be checked via session.getOptions. The default value is true
+[exit 1]

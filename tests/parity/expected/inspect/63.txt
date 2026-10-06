@@ -1,0 +1,27 @@
+[
+  {
+    _id: ObjectId('<oid>'),
+    name: 'User 0',
+    email: 'user0@example.com',
+    active: true,
+    scores: [ 0, 0, 0 ],
+    profile: { bio: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', links: [] }
+  },
+  {
+    _id: ObjectId('<oid>'),
+    name: 'User 1',
+    email: 'user1@example.com',
+    active: false,
+    scores: [ 10, 20, 30 ],
+    profile: { bio: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', links: [] }
+  },
+  {
+    _id: ObjectId('<oid>'),
+    name: 'User 2',
+    email: 'user2@example.com',
+    active: true,
+    scores: [ 20, 40, 60 ],
+    profile: { bio: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', links: [] }
+  }
+]
+[exit 0]

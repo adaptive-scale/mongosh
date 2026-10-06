@@ -1,0 +1,3 @@
+[stderr]
+Error: custom thrown
+[exit 1]

@@ -1,0 +1,2 @@
+ObjectId('<oid>')
+[exit 0]

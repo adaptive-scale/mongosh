@@ -1,0 +1,101 @@
+__CONN__ --quiet --json --eval 'db.getSiblingDB("__DB__").c.insertOne({_id: 1, l: NumberLong("5"), d: new Date(0)}); db.getSiblingDB("__DB__").c.findOne()'
+###
+__CONN__ --quiet --json=relaxed --eval '({a: 1, l: NumberLong("5"), d: new Date(0), o: ObjectId("507f1f77bcf86cd799439011"), f: 1.5})'
+###
+__CONN__ --quiet --json=canonical --eval '({a: 1, f: 1.5, s: "x", n: null, arr: [1, {b: 2}]})'
+###
+__CONN__ --quiet --json --eval 'db.getSiblingDB("__DB__").c.insertMany([{_id: 1}, {_id: 2}]); db.getSiblingDB("__DB__").c.find()'
+###
+__CONN__ --quiet --json --eval 'throw new Error("boom")'
+###
+__CONN__ --quiet --json --eval 'String(5) + "x"'
+###
+__CONN__ --quiet --json --eval 'undefined'
+###
+__CONN__ --quiet --json --eval '5'
+###
+__CONN__ --quiet --json --eval 'print("printed"); 1'
+###
+__CONN__ --quiet --json --eval 'db.getSiblingDB("__DB__").c.insertOne({_id: 1})'
+###
+__CONN__ --quiet --eval '1' --eval '2' --eval '3'
+###
+__CONN__ --quiet --eval 'var x = 5' --eval 'x * 2'
+###
+__CONN__ --quiet --eval 'print("a")' --eval 'print("b")'
+###
+__CONN__ --quiet __FIX__/script1.js
+###
+__CONN__ --quiet --eval 'var fromEval = 7' __FIX__/script1.js
+###
+__CONN__ --quiet --eval 'var fromEval = 7; fromEval' __FIX__/script1.js
+###
+__CONN__ --quiet --file __FIX__/script1.js
+###
+__CONN__ --quiet -f __FIX__/script1.js __FIX__/script2.js
+###
+__CONN__ __FIX__/script2.js
+###
+__CONN__ --quiet __FIX__/throws.js
+###
+__CONN__ --quiet --eval 'load("__FIX__/lib.js"); [libFn(2), libLoaded, load("__FIX__/lib.js")]'
+###
+__CONN__ --quiet --eval 'load("__FIX__/does-not-exist.js")'
+###
+__CONN__ --quiet --eval 'load()'
+###
+__CONN__ --quiet /nonexistent/dir/file.js
+###
+--nodb --quiet --eval '1 + 1'
+###
+--nodb --quiet --eval 'db'
+###
+--nodb --quiet --eval 'db.c.find()'
+###
+--nodb --quiet --eval '[typeof ObjectId, typeof EJSON, ObjectId("507f1f77bcf86cd799439011"), NumberLong("5"), new Date(0)]'
+###
+--nodb --quiet --eval 'rs.status()'
+###
+--nodb --quiet --eval 'show dbs'
+###
+--nodb --quiet __FIX__/nodb.js
+###
+--nodb --quiet --eval 'use foo'
+###
+--bogus-flag
+###
+--nodb --quiet --eval
+###
+mongodb://127.0.0.1:1/?serverSelectionTimeoutMS=500 --quiet --eval 1
+###
+127.0.0.1:__PORT__ -u admin -p wrongpassword --authenticationDatabase admin --quiet --eval 1
+###
+127.0.0.1:__PORT__ -u nosuchuser -p x --quiet --eval 1
+###
+__AUTH__ "127.0.0.1:__PORT__/__DB__" --quiet --eval 'db.getName()'
+###
+__AUTH__ "mongodb://127.0.0.1:__PORT__/__DB__" --quiet --eval 'db.getName()'
+###
+__AUTH__ --port __PORT__ --quiet --eval 'db.getName()'
+###
+__AUTH__ --port __PORT__ somedb --quiet --eval 'db.getName()'
+###
+__AUTH__ --host 127.0.0.1:__PORT__ --quiet --eval 'db.getMongo()'
+###
+__AUTH__ --host 127.0.0.1 --port __PORT__ --quiet --eval 'db.getMongo()'
+###
+__AUTH__ "mongodb://127.0.0.1:__PORT__/?appName=custom" --quiet --eval 'db.getMongo()'
+###
+"mongodb://admin:password@127.0.0.1:__PORT__/somedb?authSource=admin" --quiet --eval '[db.getName(), String(db.getMongo())]' --eval 'db.getMongo()'
+###
+__AUTH__ "mongodb://127.0.0.1:__PORT__" --host otherhost --quiet --eval 1
+###
+__AUTH__ "not a valid address" --quiet --eval 1
+###
+__AUTH__ --port __PORT__ --quiet --eval 'print(isInteractive())' --eval 'db.runCommand({ping: 1}).ok'
+###
+__AUTH__ --port __PORT__ --quiet --apiVersion 1 --eval 'db.runCommand({ping: 1}).ok'
+###
+__AUTH__ --port __PORT__ --quiet --apiVersion 1 --apiStrict --eval 'db.runCommand({replSetGetStatus: 1})'
+###
+__AUTH__ --port __PORT__ --quiet --retryWrites=false --eval 'db.getMongo()'

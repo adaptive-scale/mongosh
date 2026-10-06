@@ -43,21 +43,21 @@ assert_contains "$output" "executionStats" "executionStats verbosity: contains e
 # ──────────────────────────────────────────────
 print_group "explain('allPlansExecution').find()"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.explain('allPlansExecution').find({score: {\\\$gt: 10}})")
+output=$(run_eval "${COLL}.explain('allPlansExecution').find({score: {\$gt: 10}})")
 assert_contains "$output" "allPlansExecution\|queryPlanner" "allPlansExecution: returns plan info"
 
 # ──────────────────────────────────────────────
 print_group "explain().aggregate()"
 # ──────────────────────────────────────────────
-output=$(run_eval "${COLL}.explain().aggregate([{\\\$match: {dept: 'eng'}}])")
+output=$(run_eval "${COLL}.explain().aggregate([{\$match: {dept: 'eng'}}])")
 assert_contains "$output" "queryPlanner\|stages" "explain aggregate: returns plan info"
 
 # ──────────────────────────────────────────────
 print_group "explain().aggregate() multi-stage"
 # ──────────────────────────────────────────────
 output=$(run_eval "${COLL}.explain().aggregate([
-    {\\\$match: {score: {\\\$gte: 10}}},
-    {\\\$group: {_id: '\\\$dept', total: {\\\$sum: '\\\$score'}}}
+    {\$match: {score: {\$gte: 10}}},
+    {\$group: {_id: '\$dept', total: {\$sum: '\$score'}}}
 ])")
 exit_code=$?
 assert_exit_success "$exit_code" "explain multi-stage aggregate: succeeds"

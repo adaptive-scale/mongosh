@@ -1,0 +1,5 @@
+{
+  acknowledged: true,
+  insertedIds: { '0': 1, '1': 2, '2': ObjectId('<oid>') }
+}
+[exit 0]

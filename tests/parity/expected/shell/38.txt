@@ -1,0 +1,9 @@
+{
+  a: 5,
+  b: ObjectId('<oid>'),
+  c: ISODate('2020-01-01T00:00:00.000Z'),
+  d: Decimal128('1.5'),
+  e: 5,
+  f: 7
+}
+[exit 0]

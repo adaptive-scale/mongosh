@@ -1,0 +1,3 @@
+[stderr]
+MongoBatchReExecutionError: This batch has already been executed, create new batch to execute
+[exit 1]

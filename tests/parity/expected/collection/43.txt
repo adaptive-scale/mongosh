@@ -1,0 +1,16 @@
+{ nInsertOps: 2, nUpdateOps: 0, nRemoveOps: 2, nBatches: 2 }
+[
+  { nInsertOps: 2, nUpdateOps: 0, nRemoveOps: 2, nBatches: 2 },
+  BulkWriteResult {
+    acknowledged: true,
+    insertedCount: 2,
+    insertedIds: { '0': 1, '1': 2 },
+    matchedCount: 0,
+    modifiedCount: 0,
+    deletedCount: 2,
+    upsertedCount: 0,
+    upsertedIds: {}
+  },
+  []
+]
+[exit 0]

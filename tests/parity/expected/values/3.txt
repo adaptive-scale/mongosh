@@ -1,0 +1,2 @@
+{ s: 'hello', t: "it's", u: 'say "hi"', v: 'a\nb', w: `both ' and "` }
+[exit 0]

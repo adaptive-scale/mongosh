@@ -1,0 +1,7 @@
+{
+  isCached: false,
+  stage: 'COLLSCAN',
+  filter: { a: { '$eq': 1 } },
+  direction: 'forward'
+}
+[exit 0]

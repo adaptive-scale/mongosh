@@ -1,0 +1,5 @@
+Warning: NumberLong: specifying a number as argument is deprecated and may lead to loss of precision, pass a string instead
+Warning: NumberLong: specifying a number as argument is deprecated and may lead to loss of precision, pass a string instead
+Warning: NumberDecimal: specifying a number as argument is deprecated and may lead to loss of precision, pass a string instead
+[ Long('5'), Long('6'), Decimal128('1.5') ]
+[exit 0]

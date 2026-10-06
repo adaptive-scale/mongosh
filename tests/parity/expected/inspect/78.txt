@@ -1,0 +1,7 @@
+{
+  text: 'line number 0 with padding\n' +
+    'line number 1 with padding\n' +
+    'line number 2 with padding\n' +
+    'line number 3 with padding'
+}
+[exit 0]

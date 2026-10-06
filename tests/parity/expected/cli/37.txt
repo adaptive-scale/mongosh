@@ -1,0 +1,3 @@
+[stderr]
+MongoServerError: Authentication failed.
+[exit 1]

@@ -45,7 +45,7 @@ run_eval "${DB}.bool_test.insertMany([
 
 output=$(run_eval "${DB}.bool_test.find({active: true}).toArray()")
 assert_contains "$output" "yes" "boolean: finds doc where active=true"
-assert_not_contains "$output" "\"no\"" "boolean: excludes doc where active=false"
+assert_not_contains "$output" "'no'" "boolean: excludes doc where active=false"
 
 output=$(run_eval "${DB}.bool_test.find({deleted: false}).toArray()")
 assert_contains "$output" "yes" "boolean: finds doc where deleted=false"
@@ -85,7 +85,7 @@ assert_contains "$output" "0" "deleteMany all: collection now empty"
 print_group "updateOne no match"
 # ──────────────────────────────────────────────
 run_eval "${DB}.no_match.insertOne({x: 1})" > /dev/null
-output=$(run_eval "var r = ${DB}.no_match.updateOne({x: 999}, {\\\$set: {y: 1}}); print(r.matchedCount)")
+output=$(run_eval "var r = ${DB}.no_match.updateOne({x: 999}, {\$set: {y: 1}}); print(r.matchedCount)")
 assert_contains "$output" "0" "updateOne no match: matchedCount is 0"
 
 # ──────────────────────────────────────────────
@@ -113,7 +113,7 @@ print_group "Multiple operations in one eval"
 # ──────────────────────────────────────────────
 output=$(run_eval "
     ${DB}.multi_op.insertOne({step: 1, val: 'initial'});
-    ${DB}.multi_op.updateOne({step: 1}, {\\\$set: {val: 'updated'}});
+    ${DB}.multi_op.updateOne({step: 1}, {\$set: {val: 'updated'}});
     var doc = ${DB}.multi_op.findOne({step: 1});
     print(doc.val);
 ")

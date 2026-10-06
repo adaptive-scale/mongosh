@@ -1,0 +1,3 @@
+[stderr]
+BSONError: Cannot convert circular structure to BSON
+[exit 1]

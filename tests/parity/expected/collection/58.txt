@@ -1,0 +1,2 @@
+[ 1, 0, 1, 'parity_collection_58.c' ]
+[exit 0]

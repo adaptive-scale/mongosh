@@ -1,0 +1,5 @@
+[Function (anonymous)] {
+  toBSON: [Function: toBSON],
+  help: [Function (anonymous)] Help
+}
+[exit 0]

@@ -1,0 +1,14 @@
+[
+  true,
+  true,
+  'parity_cursor_11.c',
+  { g: 1 },
+  {
+    find: 'c',
+    filter: { g: 1 },
+    skip: 2,
+    limit: 3,
+    '$db': 'parity_cursor_11'
+  }
+]
+[exit 0]

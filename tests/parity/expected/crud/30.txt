@@ -1,0 +1,14 @@
+{
+  nIndexesWas: 2,
+  msg: 'non-_id indexes dropped for collection',
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp(<ts>),
+    signature: {
+      hash: Binary.createFromBase64('<hash>', 0),
+      keyId: Long('<keyId>')
+    }
+  },
+  operationTime: Timestamp(<ts>)
+}
+[exit 0]

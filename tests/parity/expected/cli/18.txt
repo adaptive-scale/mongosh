@@ -1,0 +1,9 @@
+script1 ran: no eval
+object true
+script2 sees string [ 2, 4, 6 ]
+{
+  nested: {
+    ok: true
+  }
+}
+[exit 0]

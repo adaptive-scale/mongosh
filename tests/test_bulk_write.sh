@@ -29,7 +29,7 @@ assert_contains "$output" "3" "bulkWrite insertedCount is 3"
 print_group "bulkWrite with updateOne"
 # ──────────────────────────────────────────────
 output=$(run_eval "${COLL}.bulkWrite([
-    {updateOne: {filter: {name: 'Alice'}, update: {\\\$set: {val: 10}}}}
+    {updateOne: {filter: {name: 'Alice'}, update: {\$set: {val: 10}}}}
 ])")
 assert_contains "$output" "matchedCount" "bulkWrite updateOne returns matchedCount"
 assert_contains "$output" "modifiedCount" "bulkWrite updateOne returns modifiedCount"
@@ -42,7 +42,7 @@ assert_contains "$output" "10" "bulkWrite updateOne correctly updated value"
 print_group "bulkWrite with updateMany"
 # ──────────────────────────────────────────────
 output=$(run_eval "${COLL}.bulkWrite([
-    {updateMany: {filter: {}, update: {\\\$set: {bulk_updated: true}}}}
+    {updateMany: {filter: {}, update: {\$set: {bulk_updated: true}}}}
 ])")
 assert_contains "$output" "matchedCount" "bulkWrite updateMany returns matchedCount"
 assert_contains "$output" "modifiedCount" "bulkWrite updateMany returns modifiedCount"
@@ -93,7 +93,7 @@ run_eval "${COLL}.insertMany([{name:'A', v:1}, {name:'B', v:2}, {name:'C', v:3}]
 
 output=$(run_eval "${COLL}.bulkWrite([
     {insertOne: {document: {name: 'D', v: 4}}},
-    {updateOne: {filter: {name: 'A'}, update: {\\\$set: {v: 10}}}},
+    {updateOne: {filter: {name: 'A'}, update: {\$set: {v: 10}}}},
     {deleteOne: {filter: {name: 'C'}}}
 ])")
 assert_contains "$output" "acknowledged" "mixed bulkWrite returns acknowledged"
@@ -112,7 +112,7 @@ assert_contains "$output" "10" "mixed bulkWrite: update took effect"
 print_group "bulkWrite with upsert"
 # ──────────────────────────────────────────────
 output=$(run_eval "${COLL}.bulkWrite([
-    {updateOne: {filter: {name: 'NewDoc'}, update: {\\\$set: {name: 'NewDoc', v: 999}}, upsert: true}}
+    {updateOne: {filter: {name: 'NewDoc'}, update: {\$set: {name: 'NewDoc', v: 999}}, upsert: true}}
 ])")
 assert_contains "$output" "upsertedCount" "bulkWrite upsert returns upsertedCount"
 

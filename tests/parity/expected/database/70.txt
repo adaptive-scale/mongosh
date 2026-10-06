@@ -1,0 +1,2 @@
+parity_database_70
+[exit 0]

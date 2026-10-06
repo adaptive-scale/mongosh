@@ -1,0 +1,6 @@
+[stderr]
+SyntaxError: Missing semicolon. (1:64)
+
+> 1 | db.getSiblingDB('parity_shell_19').createCollection('only'); use parity_shell_19
+    |                                                                 ^
+[exit 1]

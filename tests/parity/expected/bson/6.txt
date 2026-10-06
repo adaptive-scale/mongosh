@@ -1,0 +1,19 @@
+[
+  '1.50',
+  Decimal128('1E+3'),
+  Decimal128('0.000001'),
+  Decimal128('-0'),
+  Decimal128('NaN'),
+  Decimal128('Infinity'),
+  Decimal128('12345678901234567890.123456789'),
+  Decimal128('2.5'),
+  '{"$numberDecimal":"1.5"}',
+  true,
+  '9.99',
+  Decimal128('5'),
+  Decimal128('1E-10'),
+  Decimal128('1.23'),
+  Decimal128('0.0'),
+  Decimal128('1.000000000000000000000000000000000E+36')
+]
+[exit 0]
